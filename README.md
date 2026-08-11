@@ -8,24 +8,24 @@ A ideia inicial do projeto foi proposta no curso [Sujeito Programador](https://s
 
 O principal objetivo do DevCurrency é **estudar e reforçar os fundamentos do React com TypeScript**, colocando em prática conceitos como:
 
-* Componentização
-* Props
-* Estados
-* Hooks
-* Consumo de APIs
-* Tipagem com TypeScript
-* Manipulação e exibição de dados
-* Organização de projetos React
+- Componentização
+- Props
+- Estados
+- Hooks
+- Consumo de APIs
+- Tipagem com TypeScript
+- Manipulação e exibição de dados
+- Organização de projetos React
 
 Além de servir como projeto de estudo, a ideia é continuar evoluindo a aplicação e experimentar novas funcionalidades ao longo do desenvolvimento.
 
 ## 🚀 Tecnologias
 
-* React
-* TypeScript
-* Vite
-* CSS
-* API de criptomoedas
+- React
+- TypeScript
+- Vite
+- CSS
+- API de criptomoedas
 
 ## 📌 Sobre o projeto
 

@@ -1,75 +1,40 @@
-# React + TypeScript + Vite
+# DevCurrency
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+DevCurrency é um projeto desenvolvido com React e TypeScript para criar uma listagem de criptomoedas, exibindo algumas informações e dados relevantes sobre cada moeda.
 
-Currently, two official plugins are available:
+A ideia inicial do projeto foi proposta no curso [Sujeito Programador](https://sujeitoprogramador.com/fabricadeaplicativos/?ref=T83168322Q&gad_source=1&gad_campaignid=21702817351&gbraid=0AAAAApnrrLPByCJkH8PTI0wB8G4VFSzvC&gclid=Cj0KCQjwkOvTBhDgARIsAKUNyRulgByu7ymLFLKLq-hATEHL0IacZdTgL1hqBBPcHu4bkcif6XLGdFwaAmL8EALw_wcB). A partir dessa base, o projeto será desenvolvido e posteriormente aprimorado por mim, adicionando novas funcionalidades e melhorias conforme meus estudos e conhecimentos evoluírem.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🎯 Objetivo
 
-## React Compiler
+O principal objetivo do DevCurrency é **estudar e reforçar os fundamentos do React com TypeScript**, colocando em prática conceitos como:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Componentização
+* Props
+* Estados
+* Hooks
+* Consumo de APIs
+* Tipagem com TypeScript
+* Manipulação e exibição de dados
+* Organização de projetos React
 
-## Expanding the ESLint configuration
+Além de servir como projeto de estudo, a ideia é continuar evoluindo a aplicação e experimentar novas funcionalidades ao longo do desenvolvimento.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Tecnologias
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* React
+* TypeScript
+* Vite
+* CSS
+* API de criptomoedas
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📌 Sobre o projeto
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+O projeto começa com uma proposta simples: apresentar uma listagem de criptomoedas com algumas de suas principais informações.
 
-```
+A implementação inicial seguirá a proposta apresentada no curso **Sujeito Programador**, mas o projeto será utilizado como base para estudos e melhorias próprias.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📚 Projeto de estudo
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Este projeto faz parte do meu processo de aprendizado e prática com **React + TypeScript**.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+A proposta é começar com uma aplicação simples e ir evoluindo o projeto conforme novos conceitos forem aprendidos, utilizando-o como forma de reforçar conhecimentos e experimentar novas ideias.

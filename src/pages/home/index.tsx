@@ -1,13 +1,36 @@
+import { useState, type SubmitEvent } from "react";
+
 import { BsSearch } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import styles from "./home.module.css";
 
 export function Home() {
+  const [input, setInput] = useState("");
+
+  const navigate = useNavigate();
+
+  function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    if (input === "") return;
+
+    navigate(`/detail/${input}`);
+  }
+
+  function handleGetMore() {
+    alert(`teste`);
+  }
+
   return (
     <main className={styles.container}>
-      <form className={styles.form}>
-        <input type="text" placeholder="Digite o nome da moeda" />
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Digite o nome da moeda"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
         <button type="submit">
           <BsSearch size={30} color="#fff" />
         </button>
@@ -51,6 +74,10 @@ export function Home() {
           </tr>
         </tbody>
       </table>
+
+      <button className={styles.buttonMore} onClick={handleGetMore}>
+        Buscar Mais
+      </button>
     </main>
   );
 }

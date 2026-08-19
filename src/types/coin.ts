@@ -11,7 +11,15 @@ export interface CoinProps {
   marketCapUsd: string;
   volumeUsd24Hr: string;
   explorer: string;
-  formatedPrice?: string;
-  formatedMarket?: string;
-  formatedVolume?: string;
+}
+
+export interface CoinFormatted extends CoinProps {
+  formattedPrice: string;
+  formattedMarket: string;
+  formattedVolume: string;
+}
+
+export interface CoinCapResponse<T> {
+  data: T;
+  timestamp: number;
 }

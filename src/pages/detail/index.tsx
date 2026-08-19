@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { CoinDetail } from "../../components/coinDetail";
-import Loading from "../../components/loading";
+import { Loading } from "../../components/loading";
 import { getCoin } from "../../services/coinCap";
 
 import { type CoinFormatted } from "../../types/coin";

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { LoadMoreButton } from "../../components/loadMoreButton";
 import { SearchForm } from "../../components/searchForm";
 import { CoinTable } from "../../components/coinTable";
-import Loading from "../../components/loading";
+import { Loading } from "../../components/loading";
 import { getCoins } from "../../services/coinCap";
 
 import { type CoinFormatted } from "../../types/coin";

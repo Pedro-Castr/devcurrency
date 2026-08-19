@@ -5,5 +5,3 @@ export function Notfound() {
     </div>
   );
 }
-
-export default Notfound;

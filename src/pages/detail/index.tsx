@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import type { CoinProps } from "../home";
 
-import styles from "./detail.module.css";
+import CoinDetail from "../../components/coinDetail";
+import Loading from "../../components/loading";
+
+import { type CoinProps } from "../../types/coin";
 
 interface ResponseData {
   data: CoinProps;
@@ -69,54 +71,8 @@ export function Detail() {
   }, [cripto]);
 
   if (loading || !coin) {
-    return (
-      <div className={styles.container}>
-        <h1 className={styles.center}>Carregando Detalhes</h1>
-      </div>
-    );
+    return <Loading frase={"Carregando detalhes da moeda..."} />;
   }
 
-  return (
-    <div className={styles.container}>
-      <h1 className={styles.center}>{coin?.name}</h1>
-      <h1 className={styles.center}>{coin?.symbol}</h1>
-
-      <section className={styles.content}>
-        <img
-          className={styles.logo}
-          src={`https://assets.coincap.io/assets/icons/${coin?.symbol.toLowerCase()}2@2x.png`}
-          alt="Logo da moeda"
-        />
-
-        <h1>
-          {coin?.name} | {coin?.symbol}
-        </h1>
-
-        <p>
-          <strong>Preço: </strong> {coin?.formatedPrice}
-        </p>
-
-        <a href="">
-          <strong>Mercado: </strong> {coin.formatedMarket}
-        </a>
-
-        <a href="">
-          <strong>Volume: </strong> {coin.formatedVolume}
-        </a>
-
-        <a href="">
-          <strong>Mudança: </strong>
-          <span
-            className={
-              Number(coin?.changePercent24Hr) > 0 ? styles.profit : styles.loss
-            }
-          >
-            {Number(coin?.changePercent24Hr).toFixed(2)}
-          </span>
-        </a>
-      </section>
-    </div>
-  );
+  return <CoinDetail coin={coin} />;
 }
-
-export default Detail;

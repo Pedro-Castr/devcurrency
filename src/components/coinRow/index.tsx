@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 
-import { type CoinProps } from "../../types/coin";
+import { type CoinFormatted } from "../../types/coin";
 import styles from "./coinRow.module.css";
 
 interface CoinRowProps {
-  coin: CoinProps;
+  coin: CoinFormatted;
 }
 
 export function CoinRow({ coin }: CoinRowProps) {
@@ -24,11 +24,11 @@ export function CoinRow({ coin }: CoinRowProps) {
         </div>
       </td>
 
-      <td className={styles.tdLabel}>{coin.formatedMarket}</td>
+      <td className={styles.tdLabel}>{coin.formattedMarket}</td>
 
-      <td className={styles.tdLabel}>{coin.formatedPrice}</td>
+      <td className={styles.tdLabel}>{coin.formattedPrice}</td>
 
-      <td className={styles.tdLabel}>{coin.formatedVolume}</td>
+      <td className={styles.tdLabel}>{coin.formattedVolume}</td>
 
       <td className={styles.tdLabel}>
         <span

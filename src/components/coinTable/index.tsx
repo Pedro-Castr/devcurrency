@@ -1,10 +1,10 @@
 import { CoinRow } from "../coinRow";
-import { type CoinProps } from "../../types/coin";
+import { type CoinFormatted } from "../../types/coin";
 
 import styles from "./coinTable.module.css";
 
 interface CoinTableProps {
-  coins: CoinProps[];
+  coins: CoinFormatted[];
 }
 
 export function CoinTable({ coins }: CoinTableProps) {

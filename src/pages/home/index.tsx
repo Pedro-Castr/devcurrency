@@ -4,55 +4,34 @@ import { useNavigate } from "react-router-dom";
 import { LoadMoreButton } from "../../components/loadMoreButton";
 import { SearchForm } from "../../components/searchForm";
 import { CoinTable } from "../../components/coinTable";
-import Loading from "../../components/loading";
+import { Loading } from "../../components/loading";
+import { getCoins } from "../../services/coinCap";
 
-import { price, priceCompact } from "../../utils/formatCurrency";
-import { type CoinProps } from "../../types/coin";
+import { type CoinFormatted } from "../../types/coin";
 import styles from "./home.module.css";
-
-interface DataProps {
-  data: CoinProps[];
-}
 
 export function Home() {
   const [input, setInput] = useState("");
-  const [coins, setCoins] = useState<CoinProps[]>([]);
+  const [coins, setCoins] = useState<CoinFormatted[]>([]);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/immutability
-    getData();
+    async function loadCoins() {
+      try {
+        const data = await getCoins(offset, 10);
+        setCoins(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadCoins();
   }, [offset]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  async function getData() {
-    fetch(
-      `https://rest.coincap.io/v3/assets?limit=10&offset=${offset}&apiKey=f6c7b530fa30adb164ab88c5b2d47b5e38573d084dfd3ed64cd5e436ab4de470`,
-    )
-      .then((response) => response.json())
-      .then((data: DataProps) => {
-        const coinsData = data.data;
-
-        const formatedResults = coinsData.map((item) => {
-          const formated = {
-            ...item,
-            formatedPrice: price.format(Number(item.priceUsd)),
-            formatedMarket: priceCompact.format(Number(item.marketCapUsd)),
-            formatedVolume: priceCompact.format(Number(item.volumeUsd24Hr)),
-          };
-
-          return formated;
-        });
-
-        const listCoins = [...coins, ...formatedResults];
-        setCoins(listCoins);
-      });
-
-    setLoading(false);
-  }
 
   function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();

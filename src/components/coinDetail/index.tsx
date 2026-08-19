@@ -1,11 +1,11 @@
-import type { CoinProps } from "../../types/coin";
+import type { CoinFormatted } from "../../types/coin";
 import styles from "./coinDetail.module.css";
 
 interface CoinDetailProps {
-  coin: CoinProps;
+  coin: CoinFormatted;
 }
 
-export default function CoinDetail({ coin }: CoinDetailProps) {
+export function CoinDetail({ coin }: CoinDetailProps) {
   return (
     <div className={styles.container}>
       <h1 className={styles.center}>{coin.name}</h1>
@@ -23,15 +23,15 @@ export default function CoinDetail({ coin }: CoinDetailProps) {
         </h1>
 
         <p>
-          <strong>Preço: </strong> {coin.formatedPrice}
+          <strong>Preço: </strong> {coin.formattedPrice}
         </p>
 
         <p>
-          <strong>Mercado: </strong> {coin.formatedMarket}
+          <strong>Mercado: </strong> {coin.formattedMarket}
         </p>
 
         <p>
-          <strong>Volume: </strong> {coin.formatedVolume}
+          <strong>Volume: </strong> {coin.formattedVolume}
         </p>
 
         <p>

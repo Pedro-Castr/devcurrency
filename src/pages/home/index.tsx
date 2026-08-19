@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { LoadMoreButton } from "../../components/loadMoreButton";
 import { SearchForm } from "../../components/searchForm";
 import { CoinTable } from "../../components/coinTable";
+import Loading from "../../components/loading";
 
 import { price, priceCompact } from "../../utils/formatCurrency";
 import { type CoinProps } from "../../types/coin";
@@ -17,6 +18,7 @@ export function Home() {
   const [input, setInput] = useState("");
   const [coins, setCoins] = useState<CoinProps[]>([]);
   const [offset, setOffset] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -48,6 +50,8 @@ export function Home() {
         const listCoins = [...coins, ...formatedResults];
         setCoins(listCoins);
       });
+
+    setLoading(false);
   }
 
   function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
@@ -65,6 +69,10 @@ export function Home() {
     }
 
     setOffset(offset + 10);
+  }
+
+  if (loading) {
+    return <Loading frase="Carregando moedas..." />;
   }
 
   return (

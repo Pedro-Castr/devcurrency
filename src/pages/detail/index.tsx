@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { CoinDetail } from "../../components/coinDetail";
+import { AssetDetail } from "../../components/assetDetail";
 import { Loading } from "../../components/loading";
-import { getCoin } from "../../services/coinCap";
+import { getAsset } from "../../services/brapi";
 
-import { type CoinFormatted } from "../../types/coin";
+import type { FormatedAssetProps } from "../../types/assets";
 
 export function Detail() {
-  const [coin, setCoin] = useState<CoinFormatted>();
+  const [asset, setAsset] = useState<FormatedAssetProps>();
   const [loading, setLoading] = useState(true);
 
-  const { cripto } = useParams();
+  const { assetParam } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     async function loadCoin() {
-      if (!cripto) {
+      if (!assetParam) {
         navigate("/");
         return;
       }
 
       try {
-        const data = await getCoin(cripto);
-        setCoin(data);
+        const data = await getAsset(assetParam);
+        setAsset(data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -32,11 +32,11 @@ export function Detail() {
     }
 
     loadCoin();
-  }, [cripto, navigate]);
+  }, [assetParam, navigate]);
 
-  if (loading || !coin) {
-    return <Loading frase={"Carregando detalhes da moeda..."} />;
+  if (loading || !asset) {
+    return <Loading frase={"Carregando detalhes..."} />;
   }
 
-  return <CoinDetail coin={coin} />;
+  return <AssetDetail asset={asset} />;
 }

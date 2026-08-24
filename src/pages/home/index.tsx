@@ -3,26 +3,27 @@ import { useNavigate } from "react-router-dom";
 
 import { LoadMoreButton } from "../../components/loadMoreButton";
 import { SearchForm } from "../../components/searchForm";
-import { CoinTable } from "../../components/coinTable";
+import { AssetTable } from "../../components/assetTable";
 import { Loading } from "../../components/loading";
-import { getCoins } from "../../services/coinCap";
 
-import { type CoinFormatted } from "../../types/coin";
+import type { FormatedAssetProps } from "../../types/assets";
 import styles from "./home.module.css";
+import { getAssets } from "../../services/brapi";
 
 export function Home() {
   const [input, setInput] = useState("");
-  const [coins, setCoins] = useState<CoinFormatted[]>([]);
+  const [assets, setAssets] = useState<FormatedAssetProps[]>([]);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function loadCoins() {
+    async function loadAssets() {
       try {
-        const data = await getCoins(offset, 10);
-        setCoins(data);
+        const data = await getAssets("stock");
+        setAssets(data);
+        console.log(data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -30,8 +31,8 @@ export function Home() {
       }
     }
 
-    loadCoins();
-  }, [offset]);
+    loadAssets();
+  }, []);
 
   function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -51,14 +52,14 @@ export function Home() {
   }
 
   if (loading) {
-    return <Loading frase="Carregando moedas..." />;
+    return <Loading frase="Carregando..." />;
   }
 
   return (
     <main className={styles.container}>
       <SearchForm value={input} onChange={setInput} onSubmit={handleSubmit} />
 
-      <CoinTable coins={coins} />
+      <AssetTable assets={assets} />
 
       <LoadMoreButton onClick={handleGetMore} />
     </main>

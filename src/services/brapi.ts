@@ -2,6 +2,7 @@ import type {
   AssetProps,
   FormatedAssetProps,
   BrapiResponseProps,
+  PaginatedAssetsProps,
 } from "../types/assets";
 
 import {
@@ -24,37 +25,45 @@ export function formatAsset(asset: AssetProps): FormatedAssetProps {
   };
 }
 
-async function request(endpoint: string): Promise<AssetProps[]> {
+async function request(endpoint: string): Promise<BrapiResponseProps> {
   const response = await fetch(`${API_URL}${endpoint}&token=${API_KEY}`);
 
   if (!response.ok) {
     throw new Error(`Erro na API: ${response.status}`);
   }
 
-  const data: BrapiResponseProps = await response.json();
-
-  return data.stocks;
+  return response.json();
 }
 
 export async function getAssets(
   type: string,
+  page: number = 1,
   subType?: string,
-): Promise<FormatedAssetProps[]> {
-  let endpoint = `/quote/list?type=${type}&limit=10`;
+  search?: string,
+): Promise<PaginatedAssetsProps> {
+  let endpoint = `/quote/list?type=${type}&limit=10&page=${page}`;
 
   if (subType) {
     endpoint += `&subType=${subType}`;
   }
 
-  const assets = await request(endpoint);
+  if (search) {
+    endpoint += `&search=${encodeURIComponent(search)}`;
+  }
 
-  return assets.map(formatAsset);
+  const data = await request(endpoint);
+
+  return {
+    assets: data.stocks.map(formatAsset),
+    currentPage: data.currentPage,
+    totalPages: data.totalPages,
+  };
 }
 
 export async function getAsset(asset: string): Promise<FormatedAssetProps> {
-  const assets = await request(
+  const data = await request(
     `/quote/list?type=stock&search=${encodeURIComponent(asset)}`,
   );
 
-  return formatAsset(assets[0]);
+  return formatAsset(data.stocks[0]);
 }

@@ -25,15 +25,16 @@ export interface IndexProps {
 }
 
 export interface BrapiResponseProps {
-  indexes: IndexProps[];
   stocks: AssetProps[];
-  availableSectors: string[];
-  availableSubsectors: string[];
-  availableStockTypes: string[];
-  availableSubTypeTypes: string[];
   currentPage: number;
   totalPages: number;
   itemsPerPage: number;
   totalCount: number;
   hasNextPage: boolean;
+}
+
+export interface PaginatedAssetsProps {
+  assets: FormatedAssetProps[];
+  currentPage: number;
+  totalPages: number;
 }

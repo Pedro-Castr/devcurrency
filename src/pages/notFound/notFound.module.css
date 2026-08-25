@@ -1,0 +1,101 @@
+/* ============================================
+   notFound.module.css
+   Depende dos tokens definidos em global.css.
+   ============================================ */
+
+.container {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  max-width: 420px;
+}
+
+/* "Badge" de ticker, reaproveitando a linguagem visual
+   da tabela — reforça o tema do site até na página de erro */
+.ticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+}
+
+.loss {
+  color: var(--loss);
+}
+
+.code {
+  font-family: var(--font-mono);
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.description {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  background-color: var(--accent);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.button:hover {
+  background-color: var(--accent-hover);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 640px) {
+  .code {
+    font-size: 72px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+}

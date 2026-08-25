@@ -1,13 +1,15 @@
 import styles from "./loading.module.css";
 
 interface LoadingProps {
-  frase: string;
+  message?: string;
+  fullScreen?: boolean;
 }
 
-export function Loading({ frase }: LoadingProps) {
+export function Loading({ message = "Carregando..." }: LoadingProps) {
   return (
-    <div className={styles.container}>
-      <h1 className={styles.center}>{frase}</h1>
+    <div className={styles.container} role="status" aria-live="polite">
+      <span className={styles.spinner} aria-hidden="true" />
+      <p className={styles.message}>{message}</p>
     </div>
   );
 }

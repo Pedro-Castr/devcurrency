@@ -1,19 +1,111 @@
 .form {
   width: 100%;
   display: flex;
-  gap: 2 4px;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 4px 4px 4px 16px;
+  margin: 24px 0;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.form:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
 .form input {
-  width: 100%;
+  flex: 1;
   height: 44px;
   border: 0;
-  padding: 0 8px;
-  margin: 12px;
-  border-radius: 4px;
+  background: transparent;
+  padding: 0;
+  margin: 0;
   outline: none;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+}
+
+.form input::placeholder {
+  color: var(--text-muted);
 }
 
 .form button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: var(--radius-sm);
   background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.form button:hover {
+  background-color: var(--bg-surface-alt);
+  color: var(--accent);
+}
+
+.form button:active {
+  background-color: var(--profit-bg);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background-color: var(--bg-surface);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.filterButton:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
+.filterButtonActive {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .form {
+    padding: 4px 4px 4px 12px;
+  }
+
+  .form input {
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .form button {
+    width: 36px;
+    height: 36px;
+  }
 }

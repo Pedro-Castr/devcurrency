@@ -18,13 +18,15 @@ export function AssetRow({ asset }: AssetRowProps) {
             alt={`Logo da ${asset.name}`}
           />
 
-          <Link to={`/detail/${asset.stock}`}>{asset.stock}</Link>
+          <Link to={`/detail/${asset.stock}`}>
+            {asset.stock} | {asset.name}
+          </Link>
         </div>
       </td>
 
-      <td className={styles.tdLabel}>{asset.formatedMarketCap}</td>
-
       <td className={styles.tdLabel}>{asset.formatedClose}</td>
+
+      <td className={styles.tdLabel}>{asset.formatedMarketCap}</td>
 
       <td className={styles.tdLabel}>{asset.formatedVolume}</td>
 

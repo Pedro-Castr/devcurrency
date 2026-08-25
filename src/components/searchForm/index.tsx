@@ -20,7 +20,7 @@ export function SearchForm({ value, onChange, onSubmit }: SearchFormProps) {
       />
 
       <button type="submit">
-        <BsSearch size={30} color="#fff" />
+        <BsSearch size={18} />
       </button>
     </form>
   );

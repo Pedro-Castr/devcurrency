@@ -9,6 +9,10 @@ export function Header() {
       <Link to="/">
         <img src={logo} alt="Logo DevCurrency" />
       </Link>
+
+      <nav className={styles.nav}>
+        <Link to="/sobre">Sobre</Link>
+      </nav>
     </header>
   );
 }

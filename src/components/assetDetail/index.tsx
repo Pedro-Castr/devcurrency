@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import { BsArrowLeft } from "react-icons/bs";
+
 import type { FormatedAssetProps } from "../../types/assets";
 import styles from "./assetDetail.module.css";
 
@@ -6,42 +9,58 @@ interface AssetDetailProps {
 }
 
 export function AssetDetail({ asset }: AssetDetailProps) {
+  const isProfit = Number(asset.change) > 0;
+  const assetTypeLabel = asset.type === "fund" ? "FII" : "Ação";
+
   return (
     <div className={styles.container}>
-      <h1 className={styles.center}>{asset.name}</h1>
-      <h1 className={styles.center}>{asset.stock}</h1>
+      <Link to="/" className={styles.back}>
+        <BsArrowLeft size={16} />
+        Voltar
+      </Link>
 
-      <section className={styles.content}>
+      <section className={styles.hero}>
         <img
           className={styles.logo}
           src={asset.logo}
           alt={`Logo da ${asset.name}`}
         />
 
-        <h1>
-          {asset.name} | {asset.stock}
-        </h1>
+        <div className={styles.heroInfo}>
+          <span className={styles.badge}>{assetTypeLabel}</span>
+          <h1 className={styles.name}>{asset.name}</h1>
+          <span className={styles.stock}>{asset.stock}</span>
+        </div>
+      </section>
 
-        <p>
-          <strong>Preço: </strong> {asset.formatedMarketCap}
-        </p>
+      <section className={styles.priceSection}>
+        <div>
+          <span className={styles.priceLabel}>Preço</span>
+          <strong className={styles.price}>{asset.formatedClose}</strong>
+        </div>
 
-        <p>
-          <strong>Mercado: </strong> {asset.formatedClose}
-        </p>
+        <span className={isProfit ? styles.profit : styles.loss}>
+          {asset.formatedChange}
+        </span>
+      </section>
 
-        <p>
-          <strong>Volume: </strong> {asset.formatedVolume}
-        </p>
+      <section className={styles.statsGrid}>
+        <div className={styles.statCard}>
+          <span className={styles.statLabel}>Valor de mercado</span>
+          <strong className={styles.statValue}>
+            {asset.formatedMarketCap}
+          </strong>
+        </div>
 
-        <p>
-          <strong>Mudança: </strong>
-          <span
-            className={Number(asset.change) > 0 ? styles.profit : styles.loss}
-          >
-            {asset.formatedChange}
-          </span>
-        </p>
+        <div className={styles.statCard}>
+          <span className={styles.statLabel}>Volume</span>
+          <strong className={styles.statValue}>{asset.formatedVolume}</strong>
+        </div>
+      </section>
+
+      <section className={styles.classification}>
+        <span className={styles.tag}>{asset.sector}</span>
+        <span className={styles.tag}>{asset.subsector}</span>
       </section>
     </div>
   );

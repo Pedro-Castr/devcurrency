@@ -1,92 +1,152 @@
 .tr {
-  background-color: #1d1c20;
+  transition: background-color 0.15s ease;
+  border-bottom: 1px solid var(--border-color);
 }
 
-td:first-child,
-th:first-child {
-  border-radius: 8px 0 0 8px;
+.tr:last-child {
+  border-bottom: none;
 }
 
-td:last-child,
-th:last-child {
-  border-radius: 0 8px 8px 0;
-}
-
-table th,
-table td {
-  padding: 14px;
-  text-align: center;
+.tr:hover {
+  background-color: var(--bg-surface-alt);
 }
 
 .tdLabel {
-  font-weight: bold;
-  font-size: 18px;
-  color: #fff;
+  padding: 14px 16px;
+  font-size: 14px;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  text-align: right;
+  white-space: nowrap;
 }
 
-.tdProfit {
-  color: #12f98a;
-  font-weight: bold;
-}
-
-.tdLoss {
-  color: #f91257;
-  font-weight: bold;
-}
-
-.logo {
-  width: 20px;
-  height: 20px;
-  transition: all 1s;
-}
-
-.logo:hover {
-  transform: scale(1.5);
-  z-index: 99;
+.tdLabel:first-child {
+  text-align: left;
+  font-family: var(--font-sans);
 }
 
 .name {
   display: flex;
-  gap: 8px;
   align-items: center;
+  gap: 10px;
 }
 
-@media screen and (max-width: 600px) {
-  .name img {
-    margin-left: 14px;
-  }
+.logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--bg-surface-alt);
+  border: 1px solid var(--border-color);
+}
 
+.name a {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 14px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+  transition: color 0.15s ease;
+}
+
+.name a:hover {
+  color: var(--accent-hover);
+}
+
+.tdProfit,
+.tdLoss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 13px;
+  font-family: var(--font-mono);
+}
+
+.tdProfit {
+  color: var(--profit);
+  background-color: var(--profit-bg);
+}
+
+.tdLoss {
+  color: var(--loss);
+  background-color: var(--loss-bg);
+}
+
+.tdProfit::before {
+  content: "▲";
+  font-size: 10px;
+}
+
+.tdLoss::before {
+  content: "▼";
+  font-size: 10px;
+}
+
+@media (max-width: 640px) {
   .tr {
-    border-bottom: 1px solid #ddd;
     display: block;
-    margin-bottom: 14px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
   }
 
-  table td {
-    border-bottom: 1px solid #dddddd2b;
-    display: block;
+  .tdLabel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    font-size: 13px;
     text-align: right;
-    font-size: 14px;
+    white-space: normal;
+    border-bottom: 1px solid var(--border-color);
   }
 
-  table td::before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
+  .tdLabel:last-child {
+    border-bottom: none;
+  }
+
+  .tdLabel:first-child {
+    justify-content: flex-start;
+    padding: 12px 14px;
+    background-color: var(--bg-surface-alt);
+  }
+
+  .logo {
+    width: 24px;
+    height: 24px;
+  }
+
+  .name a {
+    font-size: 13px;
+  }
+
+  .tdLabel:nth-of-type(2)::before {
+    content: "Valor mercado";
+  }
+
+  .tdLabel:nth-of-type(3)::before {
+    content: "Preço";
+  }
+
+  .tdLabel:nth-of-type(4)::before {
+    content: "Volume";
+  }
+
+  .tdLabel:nth-of-type(5)::before {
+    content: "Mudança 24h";
+  }
+
+  .tdLabel:nth-of-type(n + 2)::before {
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
     text-transform: uppercase;
-  }
-
-  table td:last-child {
-    border-bottom: 0;
-  }
-
-  td:first-child,
-  th:first-child {
-    border-radius: 0;
-  }
-
-  td:last-child,
-  th:last-child {
-    border-radius: 0;
+    letter-spacing: 0.03em;
   }
 }

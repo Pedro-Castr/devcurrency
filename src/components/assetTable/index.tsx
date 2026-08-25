@@ -12,11 +12,11 @@ export function AssetTable({ assets }: AssetTableProps) {
     <table className={styles.table}>
       <thead>
         <tr>
-          <th>Moeda</th>
-          <th>Valor mercado</th>
+          <th>Nome</th>
           <th>Preço</th>
+          <th>Valor de Mercado</th>
           <th>Volume</th>
-          <th>Mudança 24h</th>
+          <th>Variação</th>
         </tr>
       </thead>
 

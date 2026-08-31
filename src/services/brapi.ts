@@ -3,6 +3,7 @@ import type {
   FormatedAssetProps,
   BrapiResponseProps,
   PaginatedAssetsProps,
+  StockTypes,
 } from "../types/assets";
 
 import {
@@ -60,9 +61,12 @@ export async function getAssets(
   };
 }
 
-export async function getAsset(asset: string): Promise<FormatedAssetProps> {
+export async function getAsset(
+  asset: string,
+  type: StockTypes,
+): Promise<FormatedAssetProps> {
   const data = await request(
-    `/quote/list?type=stock&search=${encodeURIComponent(asset)}`,
+    `/quote/list?type=${type}&search=${encodeURIComponent(asset)}`,
   );
 
   return formatAsset(data.stocks[0]);

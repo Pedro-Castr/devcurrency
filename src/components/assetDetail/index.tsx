@@ -45,13 +45,14 @@ export function AssetDetail({ asset }: AssetDetailProps) {
       </section>
 
       <section className={styles.statsGrid}>
-        <div className={styles.statCard}>
-          <span className={styles.statLabel}>Valor de mercado</span>
-          <strong className={styles.statValue}>
-            {asset.formatedMarketCap}
-          </strong>
-        </div>
-
+        {asset.type === "stock" && (
+          <div className={styles.statCard}>
+            <span className={styles.statLabel}>Valor de mercado</span>
+            <strong className={styles.statValue}>
+              {asset.formatedMarketCap}
+            </strong>
+          </div>
+        )}
         <div className={styles.statCard}>
           <span className={styles.statLabel}>Volume</span>
           <strong className={styles.statValue}>{asset.formatedVolume}</strong>
@@ -59,8 +60,10 @@ export function AssetDetail({ asset }: AssetDetailProps) {
       </section>
 
       <section className={styles.classification}>
-        <span className={styles.tag}>{asset.sector}</span>
-        <span className={styles.tag}>{asset.subsector}</span>
+        {asset.sector && <span className={styles.tag}>{asset.sector}</span>}
+        {asset.subsector && (
+          <span className={styles.tag}>{asset.subsector}</span>
+        )}
       </section>
     </div>
   );

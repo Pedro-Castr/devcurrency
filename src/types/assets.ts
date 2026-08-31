@@ -8,7 +8,7 @@ export interface AssetProps {
   logo: string;
   sector: string;
   subsector: string;
-  type: string;
+  type: StockTypes;
   subType: string;
 }
 
@@ -38,3 +38,5 @@ export interface PaginatedAssetsProps {
   currentPage: number;
   totalPages: number;
 }
+
+export type StockTypes = "stock" | "fund";

@@ -18,7 +18,7 @@ export function AssetRow({ asset }: AssetRowProps) {
             alt={`Logo da ${asset.name}`}
           />
 
-          <Link to={`/detail/${asset.stock}`}>
+          <Link to={`/detail/${asset.stock}?type=${asset.type}`}>
             {asset.stock} | {asset.name}
           </Link>
         </div>
@@ -26,7 +26,9 @@ export function AssetRow({ asset }: AssetRowProps) {
 
       <td className={styles.tdLabel}>{asset.formatedClose}</td>
 
-      <td className={styles.tdLabel}>{asset.formatedMarketCap}</td>
+      {asset.type === "stock" && (
+        <td className={styles.tdLabel}>{asset.formatedMarketCap}</td>
+      )}
 
       <td className={styles.tdLabel}>{asset.formatedVolume}</td>
 

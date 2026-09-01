@@ -6,18 +6,26 @@ import { SearchForm } from "../../components/searchForm";
 import { AssetTable } from "../../components/assetTable";
 import { Loading } from "../../components/loading";
 
-import type { StockTypes } from "../../types/assets";
-import type { FormatedAssetProps } from "../../types/assets";
+import type {
+  FormatedAssetProps,
+  StockTypes,
+  AssetSuggestion,
+} from "../../types/assets";
 import styles from "./home.module.css";
-import { getAssets } from "../../services/brapi";
+import { getAssets, searchAssetSuggestions } from "../../services/brapi";
 
 export function Home() {
   const [input, setInput] = useState("");
   const [assets, setAssets] = useState<FormatedAssetProps[]>([]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
   const [stockFilter, setStockFilter] = useState<StockTypes>("stock");
   const [loading, setLoading] = useState(true);
+
+  const [suggestions, setSuggestions] = useState<AssetSuggestion[]>([]);
+  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -28,7 +36,7 @@ export function Home() {
           const data = await getAssets(stockFilter, page, "fii", undefined);
           setAssets(data.assets);
           setTotalPages(data.totalPages);
-        } else if (stockFilter == "stock") {
+        } else if (stockFilter === "stock") {
           const data = await getAssets(stockFilter, page, undefined, undefined);
           setAssets(data.assets);
           setTotalPages(data.totalPages);
@@ -43,6 +51,20 @@ export function Home() {
     fetchAssets(currentPage);
   }, [currentPage, stockFilter]);
 
+  useEffect(() => {
+    if (input.length <= 2) {
+      return; // só sai, sem tocar em estado nenhum
+    }
+
+    const timeoutId = setTimeout(async () => {
+      const resultados = await searchAssetSuggestions(input);
+      setSuggestions(resultados);
+      setDropdownIsOpen(true);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [input]);
+
   function handlePageChange(page: number) {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -53,7 +75,18 @@ export function Home() {
 
     if (input === "") return;
 
+    setDropdownIsOpen(false);
     navigate(`/detail/${input}`);
+  }
+
+  function handleSelectSuggestion(suggestion: AssetSuggestion) {
+    setDropdownIsOpen(false);
+    setInput(suggestion.stock);
+    navigate(`/detail/${suggestion.stock}?type=${suggestion.type}`);
+  }
+
+  function handleCloseSuggestions() {
+    setDropdownIsOpen(false);
   }
 
   function handleStockFilter(stockFilter: StockTypes) {
@@ -66,7 +99,15 @@ export function Home() {
 
   return (
     <main className={styles.container}>
-      <SearchForm value={input} onChange={setInput} onSubmit={handleSubmit} />
+      <SearchForm
+        value={input}
+        onChange={setInput}
+        onSubmit={handleSubmit}
+        suggestions={suggestions}
+        isOpen={dropdownIsOpen}
+        onSelectSuggestion={handleSelectSuggestion}
+        onCloseSuggestions={handleCloseSuggestions}
+      />
 
       <AssetTable
         assets={assets}

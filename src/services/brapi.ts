@@ -4,6 +4,7 @@ import type {
   BrapiResponseProps,
   PaginatedAssetsProps,
   StockTypes,
+  AssetSuggestion,
 } from "../types/assets";
 
 import {
@@ -70,4 +71,21 @@ export async function getAsset(
   );
 
   return formatAsset(data.stocks[0]);
+}
+
+export async function searchAssetSuggestions(
+  term: string,
+): Promise<AssetSuggestion[]> {
+  if (!term.trim()) return [];
+
+  const data = await request(
+    `/quote/list?search=${encodeURIComponent(term)}&limit=5`,
+  );
+
+  return data.stocks.map((asset) => ({
+    stock: asset.stock,
+    name: asset.name,
+    logo: asset.logo,
+    type: asset.type,
+  }));
 }

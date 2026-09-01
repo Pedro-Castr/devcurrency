@@ -40,3 +40,10 @@ export interface PaginatedAssetsProps {
 }
 
 export type StockTypes = "stock" | "fund";
+
+export interface AssetSuggestion {
+  stock: string;
+  name: string;
+  logo: string;
+  type: string;
+}

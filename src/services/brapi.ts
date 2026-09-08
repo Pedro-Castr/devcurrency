@@ -15,7 +15,7 @@ import {
 } from "../utils/formatCurrency";
 
 const API_URL = "https://brapi.dev/api";
-const API_KEY = import.meta.env.VITE_COINCAP_API_KEY;
+const API_KEY = import.meta.env.VITE_BRAPI_API_KEY;
 
 export function formatAsset(asset: AssetProps): FormatedAssetProps {
   return {

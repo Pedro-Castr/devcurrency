@@ -97,6 +97,7 @@ export function Home() {
 
   function handleStockFilter(stockFilter: StockTypes) {
     setStockFilter(stockFilter);
+    setCurrentPage(1);
   }
 
   if (loading) {

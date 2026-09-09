@@ -101,6 +101,13 @@
   flex-shrink: 0;
 }
 
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .suggestionInfo {
   display: flex;
   flex-direction: column;
@@ -121,6 +128,12 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.typeInfo {
+  text-transform: uppercase;
+  font-size: 13px;
+  color: var(--text-secondary);
 }
 
 .filters {

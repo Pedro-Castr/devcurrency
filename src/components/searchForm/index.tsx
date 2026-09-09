@@ -72,10 +72,16 @@ export function SearchForm({
                     alt=""
                   />
 
-                  <span className={styles.suggestionInfo}>
-                    <strong>{item.stock}</strong>
-                    <span>{item.name}</span>
-                  </span>
+                  <div className={styles.info}>
+                    <span className={styles.suggestionInfo}>
+                      <strong>{item.stock}</strong>
+                      <span>{item.name}</span>
+                    </span>
+
+                    <span className={styles.typeInfo}>
+                      <span>{item.type}</span>
+                    </span>
+                  </div>
                 </button>
               </li>
             ))

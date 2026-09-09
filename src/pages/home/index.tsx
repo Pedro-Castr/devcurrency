@@ -21,7 +21,12 @@ export function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const [stockFilter, setStockFilter] = useState<StockTypes>("stock");
+  const [stockFilter, setStockFilter] = useState<StockTypes>(() => {
+    const savedStockType = localStorage.getItem("stockFilter");
+    return savedStockType === "stock" || savedStockType === "fund"
+      ? savedStockType
+      : "stock";
+  });
   const [loading, setLoading] = useState(true);
 
   const [suggestions, setSuggestions] = useState<AssetSuggestion[]>([]);
@@ -41,6 +46,7 @@ export function Home() {
           setAssets(data.assets);
           setTotalPages(data.totalPages);
         }
+        localStorage.setItem("stockFilter", stockFilter);
       } catch (error) {
         console.error("Erro ao buscar ativos:", error);
       } finally {
@@ -53,7 +59,7 @@ export function Home() {
 
   useEffect(() => {
     if (input.length <= 2) {
-      return; // só sai, sem tocar em estado nenhum
+      return;
     }
 
     const timeoutId = setTimeout(async () => {
@@ -91,6 +97,7 @@ export function Home() {
 
   function handleStockFilter(stockFilter: StockTypes) {
     setStockFilter(stockFilter);
+    setCurrentPage(1);
   }
 
   if (loading) {

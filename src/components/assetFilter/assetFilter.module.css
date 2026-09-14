@@ -1,7 +1,6 @@
 .stockFilter {
   display: flex;
   justify-content: end;
-  margin-bottom: 24px;
   padding: 12px;
   gap: 12px;
 }

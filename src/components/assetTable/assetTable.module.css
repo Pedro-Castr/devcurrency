@@ -1,3 +1,17 @@
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.sortGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .table {
   width: 100%;
   border-collapse: separate;
@@ -33,6 +47,11 @@
 }
 
 @media (max-width: 640px) {
+  .toolbar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
   .table {
     border: none;
     background-color: transparent;

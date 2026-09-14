@@ -10,6 +10,7 @@ import type {
   FormatedAssetProps,
   StockTypes,
   AssetSuggestion,
+  SortOptions,
 } from "../../types/assets";
 import styles from "./home.module.css";
 import { getAssets, searchAssetSuggestions } from "../../services/brapi";
@@ -32,20 +33,25 @@ export function Home() {
   const [suggestions, setSuggestions] = useState<AssetSuggestion[]>([]);
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
+  const [sortOption, setSortOption] = useState<SortOptions>("market_cap_basic");
+
   const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchAssets(page: number) {
       try {
-        if (stockFilter === "fund") {
-          const data = await getAssets(stockFilter, page, "fii", undefined);
-          setAssets(data.assets);
-          setTotalPages(data.totalPages);
-        } else if (stockFilter === "stock") {
-          const data = await getAssets(stockFilter, page, undefined, undefined);
-          setAssets(data.assets);
-          setTotalPages(data.totalPages);
-        }
+        const subType = stockFilter === "fund" ? "fii" : undefined;
+
+        const data = await getAssets(
+          stockFilter,
+          page,
+          subType,
+          undefined,
+          sortOption,
+        );
+        setAssets(data.assets);
+        setTotalPages(data.totalPages);
+
         localStorage.setItem("stockFilter", stockFilter);
       } catch (error) {
         console.error("Erro ao buscar ativos:", error);
@@ -55,7 +61,7 @@ export function Home() {
     }
 
     fetchAssets(currentPage);
-  }, [currentPage, stockFilter]);
+  }, [currentPage, stockFilter, sortOption]);
 
   useEffect(() => {
     if (input.length <= 2) {
@@ -100,6 +106,11 @@ export function Home() {
     setCurrentPage(1);
   }
 
+  function handleOption(sortOption: SortOptions) {
+    setSortOption(sortOption);
+    setCurrentPage(1);
+  }
+
   if (loading) {
     return <Loading />;
   }
@@ -118,8 +129,10 @@ export function Home() {
 
       <AssetTable
         assets={assets}
-        onChange={handleStockFilter}
         selected={stockFilter}
+        sortOption={sortOption}
+        onChangeFilter={handleStockFilter}
+        handleOption={handleOption}
       />
 
       <Pagination

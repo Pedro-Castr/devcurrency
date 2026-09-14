@@ -1,19 +1,35 @@
 import { AssetRow } from "../assetRow";
 import { AssetFilter } from "../assetFilter";
-import type { FormatedAssetProps, StockTypes } from "../../types/assets";
+import { AssetSort } from "../assetSort";
+import type {
+  FormatedAssetProps,
+  StockTypes,
+  SortOptions,
+} from "../../types/assets";
 
 import styles from "./assetTable.module.css";
 
 interface AssetTableProps {
   assets: FormatedAssetProps[];
   selected: StockTypes;
-  onChange: (type: StockTypes) => void;
+  sortOption: SortOptions;
+  onChangeFilter: (type: StockTypes) => void;
+  handleOption: (sortOption: SortOptions) => void;
 }
 
-export function AssetTable({ assets, onChange, selected }: AssetTableProps) {
+export function AssetTable({
+  assets,
+  selected,
+  sortOption,
+  onChangeFilter,
+  handleOption,
+}: AssetTableProps) {
   return (
     <>
-      <AssetFilter onChange={onChange} selected={selected} />
+      <div className={styles.toolbar}>
+        <AssetSort sortOption={sortOption} handleOption={handleOption} />
+        <AssetFilter onChange={onChangeFilter} selected={selected} />
+      </div>
 
       <table className={styles.table}>
         <thead>

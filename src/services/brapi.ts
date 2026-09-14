@@ -5,6 +5,7 @@ import type {
   PaginatedAssetsProps,
   StockTypes,
   AssetSuggestion,
+  SortOptions,
 } from "../types/assets";
 
 import {
@@ -42,8 +43,9 @@ export async function getAssets(
   page: number = 1,
   subType?: string,
   search?: string,
+  sortOption?: SortOptions,
 ): Promise<PaginatedAssetsProps> {
-  let endpoint = `/quote/list?type=${type}&limit=10&page=${page}`;
+  let endpoint = `/quote/list?type=${type}&limit=10&page=${page}&sortBy=${sortOption}`;
 
   if (subType) {
     endpoint += `&subType=${subType}`;

@@ -33,8 +33,29 @@ export function Home() {
   const [suggestions, setSuggestions] = useState<AssetSuggestion[]>([]);
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
-  const [sortOption, setSortOption] = useState<SortOptions>("market_cap_basic");
-  const [isDescending, setIsDescending] = useState(true);
+  const sortOptions: SortOptions[] = [
+    "change",
+    "close",
+    "market_cap_basic",
+    "name",
+    "volume",
+  ];
+
+  function isSortOption(value: string | null): value is SortOptions {
+    return sortOptions.includes(value as SortOptions);
+  }
+
+  const [sortOption, setSortOption] = useState<SortOptions>(() => {
+    const savedSort = localStorage.getItem("sortOption");
+    return isSortOption(savedSort) ? savedSort : "market_cap_basic";
+  });
+
+  const [isDescending, setIsDescending] = useState(() => {
+    const savedIsDescending = localStorage.getItem("isDescending");
+    return savedIsDescending === "true" || savedIsDescending === "false"
+      ? savedIsDescending === "true"
+      : true;
+  });
 
   const navigate = useNavigate();
 
@@ -56,6 +77,8 @@ export function Home() {
         setTotalPages(data.totalPages);
 
         localStorage.setItem("stockFilter", stockFilter);
+        localStorage.setItem("sortOption", sortOption);
+        localStorage.setItem("isDescending", JSON.stringify(isDescending));
       } catch (error) {
         console.error("Erro ao buscar ativos:", error);
       } finally {

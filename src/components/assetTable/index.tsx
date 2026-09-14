@@ -8,26 +8,36 @@ import type {
 } from "../../types/assets";
 
 import styles from "./assetTable.module.css";
+import { SortOrderButton } from "../sortOrderButton";
 
 interface AssetTableProps {
   assets: FormatedAssetProps[];
   selected: StockTypes;
   sortOption: SortOptions;
+  isDescending: true | false;
   onChangeFilter: (type: StockTypes) => void;
   handleOption: (sortOption: SortOptions) => void;
+  onToggle: () => void;
 }
 
 export function AssetTable({
   assets,
   selected,
   sortOption,
+  isDescending,
   onChangeFilter,
   handleOption,
+  onToggle,
 }: AssetTableProps) {
   return (
     <>
       <div className={styles.toolbar}>
-        <AssetSort sortOption={sortOption} handleOption={handleOption} />
+        <div className={styles.sortGroup}>
+          <AssetSort sortOption={sortOption} handleOption={handleOption} />
+
+          <SortOrderButton onToggle={onToggle} isDescending={isDescending} />
+        </div>
+
         <AssetFilter onChange={onChangeFilter} selected={selected} />
       </div>
 

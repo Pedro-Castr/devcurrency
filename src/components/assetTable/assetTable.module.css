@@ -6,6 +6,12 @@
   margin: 24px 0;
 }
 
+.sortGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .table {
   width: 100%;
   border-collapse: separate;

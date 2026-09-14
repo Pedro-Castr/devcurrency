@@ -44,6 +44,8 @@ export type StockTypes = "stock" | "fund";
 export type SortOptions =
   "name" | "close" | "change" | "volume" | "market_cap_basic";
 
+export type sortOrderOptions = "asc" | "desc";
+
 export interface AssetSuggestion {
   stock: string;
   name: string;

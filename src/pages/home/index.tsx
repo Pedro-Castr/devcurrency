@@ -34,6 +34,7 @@ export function Home() {
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
   const [sortOption, setSortOption] = useState<SortOptions>("market_cap_basic");
+  const [isDescending, setIsDescending] = useState(true);
 
   const navigate = useNavigate();
 
@@ -41,6 +42,7 @@ export function Home() {
     async function fetchAssets(page: number) {
       try {
         const subType = stockFilter === "fund" ? "fii" : undefined;
+        const sortOrder = isDescending === true ? "desc" : "asc";
 
         const data = await getAssets(
           stockFilter,
@@ -48,6 +50,7 @@ export function Home() {
           subType,
           undefined,
           sortOption,
+          sortOrder,
         );
         setAssets(data.assets);
         setTotalPages(data.totalPages);
@@ -61,7 +64,7 @@ export function Home() {
     }
 
     fetchAssets(currentPage);
-  }, [currentPage, stockFilter, sortOption]);
+  }, [currentPage, stockFilter, sortOption, isDescending]);
 
   useEffect(() => {
     if (input.length <= 2) {
@@ -111,6 +114,11 @@ export function Home() {
     setCurrentPage(1);
   }
 
+  function handleToggleOrder() {
+    setIsDescending((current) => !current);
+    setCurrentPage(1);
+  }
+
   if (loading) {
     return <Loading />;
   }
@@ -133,6 +141,8 @@ export function Home() {
         sortOption={sortOption}
         onChangeFilter={handleStockFilter}
         handleOption={handleOption}
+        isDescending={isDescending}
+        onToggle={handleToggleOrder}
       />
 
       <Pagination

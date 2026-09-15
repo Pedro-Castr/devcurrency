@@ -44,11 +44,19 @@ export function AssetTable({
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>Nome</th>
-            <th>Preço</th>
-            {selected === "stock" && <th>Valor de Mercado</th>}
-            <th>Volume</th>
-            <th>Variação</th>
+            <th data-tooltip="Nome da empresa ou fundo e código de negociação (ticker)">
+              Nome
+            </th>
+            <th data-tooltip="Último preço de fechamento negociado">Preço</th>
+            {selected === "stock" && (
+              <th data-tooltip="Valor total da empresa">Valor de Mercado</th>
+            )}
+            <th data-tooltip="Quantidade financeira negociada no dia">
+              Volume
+            </th>
+            <th data-tooltip="Variação percentual do preço em relação ao fechamento anterior">
+              Variação
+            </th>
           </tr>
         </thead>
 

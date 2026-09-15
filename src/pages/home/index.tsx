@@ -47,7 +47,7 @@ export function Home() {
 
   const [sortOption, setSortOption] = useState<SortOptions>(() => {
     const savedSort = localStorage.getItem("sortOption");
-    return isSortOption(savedSort) ? savedSort : "market_cap_basic";
+    return isSortOption(savedSort) ? savedSort : "volume";
   });
 
   const [isDescending, setIsDescending] = useState(() => {

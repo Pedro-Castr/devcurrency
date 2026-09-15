@@ -1,8 +1,3 @@
-/* ============================================
-   notFound.module.css
-   Depende dos tokens definidos em global.css.
-   ============================================ */
-
 .container {
   min-height: 100dvh;
   display: flex;
@@ -20,8 +15,6 @@
   max-width: 420px;
 }
 
-/* "Badge" de ticker, reaproveitando a linguagem visual
-   da tabela — reforça o tema do site até na página de erro */
 .ticker {
   display: inline-flex;
   align-items: center;

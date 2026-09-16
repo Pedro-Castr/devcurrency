@@ -19,7 +19,7 @@ export function Header({ theme, onToggleTheme }: HeaderProps) {
 
       <div className={styles.sider}>
         <nav className={styles.nav}>
-          <Link to="/sobre">Sobre</Link>
+          <Link to="/about">Sobre</Link>
         </nav>
 
         <button

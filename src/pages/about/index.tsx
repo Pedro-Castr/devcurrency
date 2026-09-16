@@ -170,7 +170,7 @@ export function About() {
           )}
 
           <a
-            href="https://devcurrency-git-versao-curso-pedro-castr.vercel.app"
+            href="https://devcurrency-n2xtugy1s-pedro-castrs-projects.vercel.app/"
             target="_blank"
             rel="noreferrer"
             className={styles.screenshotLink}

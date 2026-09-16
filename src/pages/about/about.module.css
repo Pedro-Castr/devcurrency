@@ -1,5 +1,5 @@
 .container {
-  max-width: 800px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 56px 20px 72px;
 }
@@ -77,6 +77,43 @@
   color: var(--accent-hover);
 }
 
+.techSection {
+  margin: 44px 0;
+  padding: 28px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.techGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 24px;
+  list-style: none;
+}
+
+.techItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 12px;
+  border-left: 2px solid var(--accent);
+}
+
+.techName {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.techDescription {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
 .contact {
   display: flex;
   justify-content: center;
@@ -116,6 +153,16 @@
 
   .text {
     font-size: 14px;
+  }
+
+  .techSection {
+    padding: 20px;
+    margin: 32px 0;
+  }
+
+  .techGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .contact {

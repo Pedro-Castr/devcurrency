@@ -3,6 +3,34 @@ import { BsGithub, BsLinkedin } from "react-icons/bs";
 import styles from "./about.module.css";
 
 export function About() {
+  const techStack = [
+    {
+      name: "React",
+      description: "Biblioteca base da interface, com componentes e hooks.",
+    },
+    {
+      name: "TypeScript",
+      description: "Tipagem estática nas props, estados e respostas da API.",
+    },
+    {
+      name: "Vite",
+      description: "Build e servidor de desenvolvimento do projeto.",
+    },
+    {
+      name: "React Router",
+      description: "Rotas, layout compartilhado e navegação entre páginas.",
+    },
+    {
+      name: "CSS Modules",
+      description:
+        "Estilos com escopo por componente, sem conflito de classes.",
+    },
+    {
+      name: "BRAPI",
+      description: "API pública com os dados de mercado da B3.",
+    },
+  ];
+
   return (
     <div className={styles.container}>
       <header className={styles.hero}>
@@ -72,6 +100,21 @@ export function About() {
           </p>
         </section>
 
+        <section className={styles.techSection}>
+          <h2 className={styles.sectionTitle}>Tecnologias</h2>
+
+          <ul className={styles.techGrid}>
+            {techStack.map((tech) => (
+              <li key={tech.name} className={styles.techItem}>
+                <strong className={styles.techName}>{tech.name}</strong>
+                <span className={styles.techDescription}>
+                  {tech.description}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
         <section>
           <h2 className={styles.sectionTitle}>Sobre os dados</h2>
           <p className={styles.text}>
@@ -86,7 +129,7 @@ export function About() {
 
       <footer className={styles.contact}>
         <a
-          href="https://github.com/"
+          href="https://github.com/Pedro-Castr"
           target="_blank"
           rel="noreferrer"
           className={styles.contactLink}
@@ -96,7 +139,7 @@ export function About() {
         </a>
 
         <a
-          href="https://linkedin.com/"
+          href="https://www.linkedin.com/in/pedro-castr/"
           target="_blank"
           rel="noreferrer"
           className={styles.contactLink}

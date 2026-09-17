@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 
-import { AssetDetail } from "../../components/assetDetail";
-import { Loading } from "../../components/loading";
+import { AssetDetail } from "../../components/asset-table/assetDetail";
+import { Loading } from "../../components/ui/loading";
 import { getAsset } from "../../services/brapi";
 
 import type { FormatedAssetProps, StockTypes } from "../../types/assets";

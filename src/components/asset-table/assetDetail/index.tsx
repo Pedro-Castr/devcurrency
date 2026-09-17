@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
 
-import type { FormatedAssetProps } from "../../types/assets";
+import type { FormatedAssetProps } from "../../../types/assets";
 import styles from "./assetDetail.module.css";
 
 interface AssetDetailProps {

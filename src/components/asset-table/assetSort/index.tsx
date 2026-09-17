@@ -1,4 +1,4 @@
-import type { SortOptions } from "../../types/assets";
+import type { SortOptions } from "../../../types/assets";
 
 import { BsChevronDown } from "react-icons/bs";
 import styles from "./assetSort.module.css";

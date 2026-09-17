@@ -1,10 +1,10 @@
 import { useState, useEffect, type SubmitEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Pagination } from "../../components/pagination";
-import { SearchForm } from "../../components/searchForm";
-import { AssetTable } from "../../components/assetTable";
-import { Loading } from "../../components/loading";
+import { Pagination } from "../../components/ui/pagination";
+import { SearchForm } from "../../components/search/searchForm";
+import { AssetTable } from "../../components/asset-table/assetTable";
+import { Loading } from "../../components/ui/loading";
 
 import type {
   FormatedAssetProps,

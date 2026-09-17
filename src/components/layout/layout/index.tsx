@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
 import { Header } from "../header";
-import type { ThemeTypes } from "../../types/theme";
+import type { ThemeTypes } from "../../../types/theme";
 
 export function Layout() {
   const [theme, setTheme] = useState<ThemeTypes>(() => {

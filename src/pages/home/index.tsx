@@ -6,6 +6,8 @@ import { SearchForm } from "../../components/search/searchForm";
 import { AssetTable } from "../../components/asset-table/assetTable";
 import { Loading } from "../../components/ui/loading";
 
+import { useLocalStorageState } from "../../hooks/useLocalStorageState";
+
 import type {
   FormatedAssetProps,
   StockTypes,
@@ -22,40 +24,25 @@ export function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const [stockFilter, setStockFilter] = useState<StockTypes>(() => {
-    const savedStockType = localStorage.getItem("stockFilter");
-    return savedStockType === "stock" || savedStockType === "fund"
-      ? savedStockType
-      : "stock";
-  });
+  const [stockFilter, setStockFilter] = useLocalStorageState<StockTypes>(
+    "stockFilter",
+    "stock",
+  );
+
   const [loading, setLoading] = useState(true);
 
   const [suggestions, setSuggestions] = useState<AssetSuggestion[]>([]);
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
-  const sortOptions: SortOptions[] = [
-    "change",
-    "close",
-    "market_cap_basic",
-    "name",
+  const [sortOption, setSortOption] = useLocalStorageState<SortOptions>(
+    "sortOption",
     "volume",
-  ];
+  );
 
-  function isSortOption(value: string | null): value is SortOptions {
-    return sortOptions.includes(value as SortOptions);
-  }
-
-  const [sortOption, setSortOption] = useState<SortOptions>(() => {
-    const savedSort = localStorage.getItem("sortOption");
-    return isSortOption(savedSort) ? savedSort : "volume";
-  });
-
-  const [isDescending, setIsDescending] = useState(() => {
-    const savedIsDescending = localStorage.getItem("isDescending");
-    return savedIsDescending === "true" || savedIsDescending === "false"
-      ? savedIsDescending === "true"
-      : true;
-  });
+  const [isDescending, setIsDescending] = useLocalStorageState(
+    "isDescending",
+    true,
+  );
 
   const navigate = useNavigate();
 
@@ -76,8 +63,8 @@ export function Home() {
         setAssets(data.assets);
         setTotalPages(data.totalPages);
 
-        localStorage.setItem("stockFilter", stockFilter);
-        localStorage.setItem("sortOption", sortOption);
+        localStorage.setItem("stockFilter", JSON.stringify(stockFilter));
+        localStorage.setItem("sortOption", JSON.stringify(sortOption));
         localStorage.setItem("isDescending", JSON.stringify(isDescending));
       } catch (error) {
         console.error("Erro ao buscar ativos:", error);

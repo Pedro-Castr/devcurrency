@@ -1,4 +1,4 @@
-import type { StockTypes } from "../../types/assets";
+import type { StockTypes } from "../../../types/assets";
 import styles from "./assetFilter.module.css";
 
 interface AssetFilterProps {

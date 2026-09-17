@@ -5,7 +5,7 @@ import type {
   FormatedAssetProps,
   StockTypes,
   SortOptions,
-} from "../../types/assets";
+} from "../../../types/assets";
 
 import styles from "./assetTable.module.css";
 import { SortOrderButton } from "../sortOrderButton";

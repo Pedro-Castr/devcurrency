@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import type { FormatedAssetProps } from "../../types/assets";
+import type { FormatedAssetProps } from "../../../types/assets";
 import styles from "./assetRow.module.css";
 
 interface AssetRowProps {

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
-import type { ThemeTypes } from "../../types/theme";
-import { Logo } from "../../assets/logo";
+import type { ThemeTypes } from "../../../types/theme";
+import { Logo } from "../logo";
 import styles from "./header.module.css";
 import { BsMoon, BsSun } from "react-icons/bs";
 

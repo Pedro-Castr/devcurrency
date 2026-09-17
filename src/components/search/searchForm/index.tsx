@@ -1,7 +1,7 @@
 import { useEffect, useRef, type SubmitEvent } from "react";
 import { BsSearch } from "react-icons/bs";
 
-import type { AssetSuggestion } from "../../types/assets";
+import type { AssetSuggestion } from "../../../types/assets";
 
 import styles from "./searchForm.module.css";
 

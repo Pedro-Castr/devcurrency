@@ -7,6 +7,7 @@ import { AssetTable } from "../../components/asset-table/assetTable";
 import { Loading } from "../../components/ui/loading";
 
 import { useLocalStorageState } from "../../hooks/useLocalStorageState";
+import { useDebounce } from "../../hooks/useDebounce";
 
 import type {
   FormatedAssetProps,
@@ -16,42 +17,38 @@ import type {
 } from "../../types/assets";
 import styles from "./home.module.css";
 import { getAssets, searchAssetSuggestions } from "../../services/brapi";
-import { useDebounce } from "../../hooks/useDebounce";
 
 export function Home() {
-  const [input, setInput] = useState("");
-  const [assets, setAssets] = useState<FormatedAssetProps[]>([]);
+  const navigate = useNavigate();
 
+  const [assets, setAssets] = useState<FormatedAssetProps[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   const [stockFilter, setStockFilter] = useLocalStorageState<StockTypes>(
     "stockFilter",
     "stock",
   );
-
-  const [loading, setLoading] = useState(true);
-
-  const [suggestions, setSuggestions] = useState<AssetSuggestion[]>([]);
-  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-
   const [sortOption, setSortOption] = useLocalStorageState<SortOptions>(
     "sortOption",
     "volume",
   );
-
   const [isDescending, setIsDescending] = useLocalStorageState(
     "isDescending",
     true,
   );
 
-  const navigate = useNavigate();
+  const [input, setInput] = useState("");
+  const [suggestions, setSuggestions] = useState<AssetSuggestion[]>([]);
+  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
+  const debouncedInput = useDebounce(input, 500);
 
   useEffect(() => {
     async function fetchAssets(page: number) {
       try {
         const subType = stockFilter === "fund" ? "fii" : undefined;
-        const sortOrder = isDescending === true ? "desc" : "asc";
+        const sortOrder = isDescending ? "desc" : "asc";
 
         const data = await getAssets(
           stockFilter,
@@ -61,6 +58,7 @@ export function Home() {
           sortOption,
           sortOrder,
         );
+
         setAssets(data.assets);
         setTotalPages(data.totalPages);
       } catch (error) {
@@ -73,8 +71,6 @@ export function Home() {
     fetchAssets(currentPage);
   }, [currentPage, stockFilter, sortOption, isDescending]);
 
-  const debouncedInput = useDebounce(input, 500);
-
   useEffect(() => {
     if (debouncedInput.length <= 2) return;
 
@@ -83,11 +79,6 @@ export function Home() {
       setDropdownIsOpen(true);
     });
   }, [debouncedInput]);
-
-  function handlePageChange(page: number) {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
 
   function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -108,19 +99,24 @@ export function Home() {
     setDropdownIsOpen(false);
   }
 
-  function handleStockFilter(stockFilter: StockTypes) {
-    setStockFilter(stockFilter);
+  function handleStockFilter(newStockFilter: StockTypes) {
+    setStockFilter(newStockFilter);
     setCurrentPage(1);
   }
 
-  function handleOption(sortOption: SortOptions) {
-    setSortOption(sortOption);
+  function handleOption(newSortOption: SortOptions) {
+    setSortOption(newSortOption);
     setCurrentPage(1);
   }
 
   function handleToggleOrder() {
     setIsDescending((current) => !current);
     setCurrentPage(1);
+  }
+
+  function handlePageChange(page: number) {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   if (loading) {

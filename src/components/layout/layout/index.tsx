@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
+
+import { useLocalStorageState } from "../../../hooks/useLocalStorageState";
 
 import { Header } from "../header";
 import type { ThemeTypes } from "../../../types/theme";
 
 export function Layout() {
-  const [theme, setTheme] = useState<ThemeTypes>(() => {
-    const savedTheme = localStorage.getItem("theme");
-    return savedTheme === "dark" || savedTheme === "light"
-      ? savedTheme
-      : "light";
-  });
+  const [theme, setTheme] = useLocalStorageState<ThemeTypes>("theme", "light");
 
   function toggleTheme() {
     setTheme(theme === "light" ? "dark" : "light");
@@ -18,7 +15,6 @@ export function Layout() {
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
   }, [theme]);
 
   return (

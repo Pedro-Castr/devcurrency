@@ -63,10 +63,6 @@ export function Home() {
         );
         setAssets(data.assets);
         setTotalPages(data.totalPages);
-
-        localStorage.setItem("stockFilter", JSON.stringify(stockFilter));
-        localStorage.setItem("sortOption", JSON.stringify(sortOption));
-        localStorage.setItem("isDescending", JSON.stringify(isDescending));
       } catch (error) {
         console.error("Erro ao buscar ativos:", error);
       } finally {
@@ -98,12 +94,12 @@ export function Home() {
 
     if (input === "") return;
 
-    setDropdownIsOpen(false);
+    handleCloseSuggestions();
     navigate(`/detail/${input}`);
   }
 
   function handleSelectSuggestion(suggestion: AssetSuggestion) {
-    setDropdownIsOpen(false);
+    handleCloseSuggestions();
     setInput(suggestion.stock);
     navigate(`/detail/${suggestion.stock}?type=${suggestion.type}`);
   }

@@ -16,6 +16,7 @@ import type {
 } from "../../types/assets";
 import styles from "./home.module.css";
 import { getAssets, searchAssetSuggestions } from "../../services/brapi";
+import { useDebounce } from "../../hooks/useDebounce";
 
 export function Home() {
   const [input, setInput] = useState("");
@@ -76,19 +77,16 @@ export function Home() {
     fetchAssets(currentPage);
   }, [currentPage, stockFilter, sortOption, isDescending]);
 
-  useEffect(() => {
-    if (input.length <= 2) {
-      return;
-    }
+  const debouncedInput = useDebounce(input, 500);
 
-    const timeoutId = setTimeout(async () => {
-      const resultados = await searchAssetSuggestions(input);
+  useEffect(() => {
+    if (debouncedInput.length <= 2) return;
+
+    searchAssetSuggestions(debouncedInput).then((resultados) => {
       setSuggestions(resultados);
       setDropdownIsOpen(true);
-    }, 500);
-
-    return () => clearTimeout(timeoutId);
-  }, [input]);
+    });
+  }, [debouncedInput]);
 
   function handlePageChange(page: number) {
     setCurrentPage(page);

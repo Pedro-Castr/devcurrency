@@ -1,9 +1,10 @@
-import { useEffect, useRef, type SubmitEvent } from "react";
+import { type SubmitEvent } from "react";
 import { BsSearch } from "react-icons/bs";
 
 import type { AssetSuggestion } from "../../../types/assets";
 
 import styles from "./searchForm.module.css";
+import { useClickOutside } from "../../../hooks/useClickOutside";
 
 interface SearchFormProps {
   value: string;
@@ -24,21 +25,7 @@ export function SearchForm({
   onSelectSuggestion,
   onCloseSuggestions,
 }: SearchFormProps) {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        wrapperRef.current &&
-        !wrapperRef.current.contains(event.target as Node)
-      ) {
-        onCloseSuggestions();
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [onCloseSuggestions]);
+  const wrapperRef = useClickOutside(onCloseSuggestions);
 
   return (
     <div className={styles.wrapper} ref={wrapperRef}>

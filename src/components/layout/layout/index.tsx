@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 
-import { useLocalStorageState } from "../../../hooks/useLocalStorageState";
+import { useLocalStorageState } from "../../../hooks/useLocalStorageState/useLocalStorageState";
 
 import { Header } from "../header";
 import type { ThemeTypes } from "../../../types/theme";

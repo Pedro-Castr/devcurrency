@@ -74,6 +74,10 @@ export async function getAsset(
     `/quote/list?type=${type}&search=${encodeURIComponent(asset)}`,
   );
 
+  if (!data.stocks || data.stocks.length === 0) {
+    throw new Error("Ativo não encontrado");
+  }
+
   return formatAsset(data.stocks[0]);
 }
 

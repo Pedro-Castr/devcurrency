@@ -4,7 +4,7 @@ import { BsSearch } from "react-icons/bs";
 import type { AssetSuggestion } from "../../../types/assets";
 
 import styles from "./searchForm.module.css";
-import { useClickOutside } from "../../../hooks/useClickOutside";
+import { useClickOutside } from "../../../hooks/useClickOutside/useClickOutside";
 
 interface SearchFormProps {
   value: string;

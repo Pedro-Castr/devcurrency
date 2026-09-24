@@ -7,7 +7,7 @@ import { AssetTable } from "../../components/asset-table/assetTable";
 import { Loading } from "../../components/ui/loading";
 
 import { useLocalStorageState } from "../../hooks/useLocalStorageState/useLocalStorageState";
-import { useDebounce } from "../../hooks/useDebounce";
+import { useDebounce } from "../../hooks/useDebounce/useDebounce";
 
 import type {
   FormatedAssetProps,

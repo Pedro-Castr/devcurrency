@@ -1,0 +1,20 @@
+name: Prettier Formater
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Prettier Ubuntu
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/krypton"
+
+      - run: npm ci
+
+      - run: npm run prettier:check

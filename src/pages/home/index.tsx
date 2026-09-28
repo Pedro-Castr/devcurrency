@@ -10,7 +10,7 @@ import { useLocalStorageState } from "../../hooks/useLocalStorageState/useLocalS
 import { useDebounce } from "../../hooks/useDebounce/useDebounce";
 
 import type {
-  FormatedTickerProps,
+  FormatedTickerListItemProps,
   StockTypes,
   TickerSuggestion,
   SortOptions,
@@ -21,7 +21,7 @@ import { getTickers, searchtickerSuggestions } from "../../services/brapi";
 export function Home() {
   const navigate = useNavigate();
 
-  const [tickers, setTickers] = useState<FormatedTickerProps[]>([]);
+  const [tickers, setTickers] = useState<FormatedTickerListItemProps[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);

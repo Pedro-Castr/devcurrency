@@ -1,9 +1,11 @@
 import type {
-  TickerProps,
-  FormatedTickerProps,
-  BrapiResponseProps,
+  TickerListItemProps,
+  TickerQuoteProps,
+  FormatedTickerListItemProps,
+  FormatedTickerQuoteProps,
+  BrapiResponseListItemProps,
+  BrapiResponseQuoteProps,
   PaginatedTickersProps,
-  StockTypes,
   TickerSuggestion,
   SortOptions,
   sortOrderOptions,
@@ -13,13 +15,16 @@ import {
   formatCompactCurrency,
   formatCompactNumber,
   formatCurrency,
+  formatNumber,
   formatPercent,
 } from "../utils/formatCurrency";
 
 const API_URL = "https://brapi.dev/api";
 const API_KEY = import.meta.env.VITE_BRAPI_API_KEY;
 
-export function formatticker(ticker: TickerProps): FormatedTickerProps {
+export function formatTickerItem(
+  ticker: TickerListItemProps,
+): FormatedTickerListItemProps {
   return {
     ...ticker,
     formatedClose: formatCurrency(ticker.close),
@@ -29,8 +34,47 @@ export function formatticker(ticker: TickerProps): FormatedTickerProps {
   };
 }
 
-async function request(endpoint: string): Promise<BrapiResponseProps> {
+export function formatTickerQuote(
+  ticker: TickerQuoteProps,
+): FormatedTickerQuoteProps {
+  return {
+    ...ticker,
+    formatedRegularMarketPrice: formatCurrency(ticker.regularMarketPrice),
+    formatedRegularMarketDayHigh: formatCurrency(ticker.regularMarketDayHigh),
+    formatedRegularMarketDayLow: formatCurrency(ticker.regularMarketDayLow),
+    formatedRegularMarketChangePercent: formatPercent(
+      ticker.regularMarketChangePercent,
+    ),
+    formatedMarketCap: formatCompactCurrency(ticker.marketCap),
+    formatedFiftyTwoWeekLow: formatCurrency(ticker.fiftyTwoWeekLow),
+    formatedFiftyTwoWeekHigh: formatCurrency(ticker.fiftyTwoWeekHigh),
+    formatedPriceEarnings: formatNumber(ticker.priceEarnings),
+    formatedRegularMarketOpen: formatCurrency(ticker.regularMarketOpen),
+    formatedRegularMarketPreviousClose: formatCurrency(
+      ticker.regularMarketPreviousClose,
+    ),
+    formatedRegularMarketVolume: formatCompactCurrency(
+      ticker.regularMarketVolume,
+    ),
+    formatedEarningsPerShare: formatCurrency(ticker.earningsPerShare),
+  };
+}
+
+async function requestItem(
+  endpoint: string,
+): Promise<BrapiResponseListItemProps> {
   const response = await fetch(`${API_URL}${endpoint}&token=${API_KEY}`);
+
+  if (!response.ok) {
+    throw new Error(`Erro na API: ${response.status}`);
+  }
+
+  return response.json();
+}
+async function requestQuote(
+  endpoint: string,
+): Promise<BrapiResponseQuoteProps> {
+  const response = await fetch(`${API_URL}${endpoint}?token=${API_KEY}`);
 
   if (!response.ok) {
     throw new Error(`Erro na API: ${response.status}`);
@@ -57,28 +101,25 @@ export async function getTickers(
     endpoint += `&search=${encodeURIComponent(search)}`;
   }
 
-  const data = await request(endpoint);
+  const data = await requestItem(endpoint);
 
   return {
-    tickers: data.stocks.map(formatticker),
+    tickers: data.stocks.map(formatTickerItem),
     currentPage: data.currentPage,
     totalPages: data.totalPages,
   };
 }
 
 export async function getTicker(
-  ticker: string,
-  type: StockTypes,
-): Promise<FormatedTickerProps> {
-  const data = await request(
-    `/quote/list?type=${type}&search=${encodeURIComponent(ticker)}`,
-  );
+  symbol: string,
+): Promise<FormatedTickerQuoteProps> {
+  const data = await requestQuote(`/quote/${encodeURIComponent(symbol)}`);
 
-  if (!data.stocks || data.stocks.length === 0) {
+  if (!data.results) {
     throw new Error("Ativo não encontrado");
   }
 
-  return formatticker(data.stocks[0]);
+  return formatTickerQuote(data.results[0]);
 }
 
 export async function searchtickerSuggestions(
@@ -86,7 +127,7 @@ export async function searchtickerSuggestions(
 ): Promise<TickerSuggestion[]> {
   if (!term.trim()) return [];
 
-  const data = await request(
+  const data = await requestItem(
     `/quote/list?search=${encodeURIComponent(term)}&limit=5`,
   );
 

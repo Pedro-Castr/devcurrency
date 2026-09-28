@@ -2,7 +2,7 @@ import { TickerRow } from "../tickerRow";
 import { TickerFilter } from "../tickerFilter";
 import { TickerSort } from "../tickerSort";
 import type {
-  FormatedTickerProps,
+  FormatedTickerListItemProps,
   StockTypes,
   SortOptions,
 } from "../../../types/ticker";
@@ -11,7 +11,7 @@ import styles from "./tickerTable.module.css";
 import { SortOrderButton } from "../sortOrderButton";
 
 interface TickerTableProps {
-  tickers: FormatedTickerProps[];
+  tickers: FormatedTickerListItemProps[];
   selected: StockTypes;
   sortOption: SortOptions;
   isDescending: true | false;

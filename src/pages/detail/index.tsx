@@ -1,30 +1,28 @@
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { TickerDetail } from "../../components/ticker-table/tickerDetail";
 import { Loading } from "../../components/ui/loading";
 import { getTicker } from "../../services/brapi";
 
-import type { FormatedTickerProps, StockTypes } from "../../types/ticker";
+import type { FormatedTickerQuoteProps } from "../../types/ticker";
 
 export function Detail() {
-  const [ticker, setTicker] = useState<FormatedTickerProps>();
+  const [ticker, setTicker] = useState<FormatedTickerQuoteProps>();
   const [loading, setLoading] = useState(true);
 
   const { tickerParam } = useParams();
-  const [searchParams] = useSearchParams();
-  const type = searchParams.get("type") as StockTypes;
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function loadCoin() {
+    async function loadTicker() {
       if (!tickerParam) {
         navigate("/");
         return;
       }
 
       try {
-        const data = await getTicker(tickerParam, type);
+        const data = await getTicker(tickerParam);
         setTicker(data);
       } catch (error) {
         console.error(error);
@@ -33,8 +31,8 @@ export function Detail() {
       }
     }
 
-    loadCoin();
-  }, [tickerParam, type, navigate]);
+    loadTicker();
+  }, [tickerParam, navigate]);
 
   if (loading || !ticker) {
     return <Loading />;

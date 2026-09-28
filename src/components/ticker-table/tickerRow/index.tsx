@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 
-import type { FormatedTickerProps } from "../../../types/ticker";
+import type { FormatedTickerListItemProps } from "../../../types/ticker";
 import styles from "./tickerRow.module.css";
 
 interface TickerRowProps {
-  ticker: FormatedTickerProps;
+  ticker: FormatedTickerListItemProps;
 }
 
 export function TickerRow({ ticker }: TickerRowProps) {

@@ -10,7 +10,9 @@ const compactCurrencyFormatter = new Intl.NumberFormat("pt-BR", {
   maximumFractionDigits: 2,
 });
 
-const numberFormatter = new Intl.NumberFormat("pt-BR");
+const numberFormatter = new Intl.NumberFormat("pt-BR", {
+  maximumFractionDigits: 2,
+});
 
 const compactNumberFormatter = new Intl.NumberFormat("pt-BR", {
   notation: "compact",

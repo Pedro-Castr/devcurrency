@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
 
-import type { FormatedAssetProps } from "../../../types/assets";
-import styles from "./assetDetail.module.css";
+import type { FormatedTickerProps } from "../../../types/ticker";
+import styles from "./tickerDetail.module.css";
 
-interface AssetDetailProps {
-  asset: FormatedAssetProps;
+interface TickerDetailProps {
+  ticker: FormatedTickerProps;
 }
 
-export function AssetDetail({ asset }: AssetDetailProps) {
-  const isProfit = Number(asset.change) > 0;
-  const assetTypeLabel = asset.type === "fund" ? "FII" : "Ação";
+export function TickerDetail({ ticker }: TickerDetailProps) {
+  const isProfit = Number(ticker.change) > 0;
+  const tickerTypeLabel = ticker.type === "fund" ? "FII" : "Ação";
 
   return (
     <div className={styles.container}>
@@ -22,47 +22,47 @@ export function AssetDetail({ asset }: AssetDetailProps) {
       <section className={styles.hero}>
         <img
           className={styles.logo}
-          src={asset.logo}
-          alt={`Logo da ${asset.name}`}
+          src={ticker.logo}
+          alt={`Logo da ${ticker.name}`}
         />
 
         <div className={styles.heroInfo}>
-          <span className={styles.badge}>{assetTypeLabel}</span>
-          <h1 className={styles.name}>{asset.name}</h1>
-          <span className={styles.stock}>{asset.stock}</span>
+          <span className={styles.badge}>{tickerTypeLabel}</span>
+          <h1 className={styles.name}>{ticker.name}</h1>
+          <span className={styles.stock}>{ticker.stock}</span>
         </div>
       </section>
 
       <section className={styles.priceSection}>
         <div>
           <span className={styles.priceLabel}>Preço</span>
-          <strong className={styles.price}>{asset.formatedClose}</strong>
+          <strong className={styles.price}>{ticker.formatedClose}</strong>
         </div>
 
         <span className={isProfit ? styles.profit : styles.loss}>
-          {asset.formatedChange}
+          {ticker.formatedChange}
         </span>
       </section>
 
       <section className={styles.statsGrid}>
-        {asset.type === "stock" && (
+        {ticker.type === "stock" && (
           <div className={styles.statCard}>
             <span className={styles.statLabel}>Valor de mercado</span>
             <strong className={styles.statValue}>
-              {asset.formatedMarketCap}
+              {ticker.formatedMarketCap}
             </strong>
           </div>
         )}
         <div className={styles.statCard}>
           <span className={styles.statLabel}>Volume</span>
-          <strong className={styles.statValue}>{asset.formatedVolume}</strong>
+          <strong className={styles.statValue}>{ticker.formatedVolume}</strong>
         </div>
       </section>
 
       <section className={styles.classification}>
-        {asset.sector && <span className={styles.tag}>{asset.sector}</span>}
-        {asset.subsector && (
-          <span className={styles.tag}>{asset.subsector}</span>
+        {ticker.sector && <span className={styles.tag}>{ticker.sector}</span>}
+        {ticker.subsector && (
+          <span className={styles.tag}>{ticker.subsector}</span>
         )}
       </section>
     </div>

@@ -1,13 +1,13 @@
 import type {
-  AssetProps,
-  FormatedAssetProps,
+  TickerProps,
+  FormatedTickerProps,
   BrapiResponseProps,
-  PaginatedAssetsProps,
+  PaginatedTickersProps,
   StockTypes,
-  AssetSuggestion,
+  TickerSuggestion,
   SortOptions,
   sortOrderOptions,
-} from "../types/assets";
+} from "../types/ticker";
 
 import {
   formatCompactCurrency,
@@ -19,13 +19,13 @@ import {
 const API_URL = "https://brapi.dev/api";
 const API_KEY = import.meta.env.VITE_BRAPI_API_KEY;
 
-export function formatAsset(asset: AssetProps): FormatedAssetProps {
+export function formatticker(ticker: TickerProps): FormatedTickerProps {
   return {
-    ...asset,
-    formatedClose: formatCurrency(asset.close),
-    formatedChange: formatPercent(asset.change),
-    formatedVolume: formatCompactNumber(asset.volume),
-    formatedMarketCap: formatCompactCurrency(asset.market_cap),
+    ...ticker,
+    formatedClose: formatCurrency(ticker.close),
+    formatedChange: formatPercent(ticker.change),
+    formatedVolume: formatCompactNumber(ticker.volume),
+    formatedMarketCap: formatCompactCurrency(ticker.market_cap),
   };
 }
 
@@ -39,14 +39,14 @@ async function request(endpoint: string): Promise<BrapiResponseProps> {
   return response.json();
 }
 
-export async function getAssets(
+export async function getTickers(
   type: string,
   page: number = 1,
   subType?: string,
   search?: string,
   sortOption?: SortOptions,
   sortOrder?: sortOrderOptions,
-): Promise<PaginatedAssetsProps> {
+): Promise<PaginatedTickersProps> {
   let endpoint = `/quote/list?type=${type}&limit=10&page=${page}&sortBy=${sortOption}&sortOrder=${sortOrder}`;
 
   if (subType) {
@@ -60,40 +60,40 @@ export async function getAssets(
   const data = await request(endpoint);
 
   return {
-    assets: data.stocks.map(formatAsset),
+    tickers: data.stocks.map(formatticker),
     currentPage: data.currentPage,
     totalPages: data.totalPages,
   };
 }
 
-export async function getAsset(
-  asset: string,
+export async function getTicker(
+  ticker: string,
   type: StockTypes,
-): Promise<FormatedAssetProps> {
+): Promise<FormatedTickerProps> {
   const data = await request(
-    `/quote/list?type=${type}&search=${encodeURIComponent(asset)}`,
+    `/quote/list?type=${type}&search=${encodeURIComponent(ticker)}`,
   );
 
   if (!data.stocks || data.stocks.length === 0) {
     throw new Error("Ativo não encontrado");
   }
 
-  return formatAsset(data.stocks[0]);
+  return formatticker(data.stocks[0]);
 }
 
-export async function searchAssetSuggestions(
+export async function searchtickerSuggestions(
   term: string,
-): Promise<AssetSuggestion[]> {
+): Promise<TickerSuggestion[]> {
   if (!term.trim()) return [];
 
   const data = await request(
     `/quote/list?search=${encodeURIComponent(term)}&limit=5`,
   );
 
-  return data.stocks.map((asset) => ({
-    stock: asset.stock,
-    name: asset.name,
-    logo: asset.logo,
-    type: asset.type,
+  return data.stocks.map((ticker) => ({
+    stock: ticker.stock,
+    name: ticker.name,
+    logo: ticker.logo,
+    type: ticker.type,
   }));
 }

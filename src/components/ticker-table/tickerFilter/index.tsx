@@ -1,12 +1,12 @@
-import type { StockTypes } from "../../../types/assets";
-import styles from "./assetFilter.module.css";
+import type { StockTypes } from "../../../types/ticker";
+import styles from "./tickerFilter.module.css";
 
-interface AssetFilterProps {
+interface TickerFilterProps {
   selected: StockTypes;
   onChange: (type: StockTypes) => void;
 }
 
-export function AssetFilter({ selected, onChange }: AssetFilterProps) {
+export function TickerFilter({ selected, onChange }: TickerFilterProps) {
   return (
     <section className={styles.stockFilter}>
       <button

@@ -15,7 +15,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/detail/:assetParam",
+        path: "/detail/:tickerParam",
         element: <Detail />,
       },
       {

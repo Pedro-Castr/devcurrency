@@ -3,25 +3,25 @@ import { useNavigate } from "react-router-dom";
 
 import { Pagination } from "../../components/ui/pagination";
 import { SearchForm } from "../../components/search/searchForm";
-import { AssetTable } from "../../components/asset-table/assetTable";
+import { TickerTable } from "../../components/ticker-table/tickerTable";
 import { Loading } from "../../components/ui/loading";
 
 import { useLocalStorageState } from "../../hooks/useLocalStorageState/useLocalStorageState";
 import { useDebounce } from "../../hooks/useDebounce/useDebounce";
 
 import type {
-  FormatedAssetProps,
+  FormatedTickerProps,
   StockTypes,
-  AssetSuggestion,
+  TickerSuggestion,
   SortOptions,
-} from "../../types/assets";
+} from "../../types/ticker";
 import styles from "./home.module.css";
-import { getAssets, searchAssetSuggestions } from "../../services/brapi";
+import { getTickers, searchtickerSuggestions } from "../../services/brapi";
 
 export function Home() {
   const navigate = useNavigate();
 
-  const [assets, setAssets] = useState<FormatedAssetProps[]>([]);
+  const [tickers, setTickers] = useState<FormatedTickerProps[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -40,17 +40,17 @@ export function Home() {
   );
 
   const [input, setInput] = useState("");
-  const [suggestions, setSuggestions] = useState<AssetSuggestion[]>([]);
+  const [suggestions, setSuggestions] = useState<TickerSuggestion[]>([]);
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const debouncedInput = useDebounce(input, 500);
 
   useEffect(() => {
-    async function fetchAssets(page: number) {
+    async function fetchtickers(page: number) {
       try {
         const subType = stockFilter === "fund" ? "fii" : undefined;
         const sortOrder = isDescending ? "desc" : "asc";
 
-        const data = await getAssets(
+        const data = await getTickers(
           stockFilter,
           page,
           subType,
@@ -59,7 +59,7 @@ export function Home() {
           sortOrder,
         );
 
-        setAssets(data.assets);
+        setTickers(data.tickers);
         setTotalPages(data.totalPages);
       } catch (error) {
         console.error("Erro ao buscar ativos:", error);
@@ -68,13 +68,13 @@ export function Home() {
       }
     }
 
-    fetchAssets(currentPage);
+    fetchtickers(currentPage);
   }, [currentPage, stockFilter, sortOption, isDescending]);
 
   useEffect(() => {
     if (debouncedInput.length <= 2) return;
 
-    searchAssetSuggestions(debouncedInput).then((resultados) => {
+    searchtickerSuggestions(debouncedInput).then((resultados) => {
       setSuggestions(resultados);
       setDropdownIsOpen(true);
     });
@@ -89,7 +89,7 @@ export function Home() {
     navigate(`/detail/${input}`);
   }
 
-  function handleSelectSuggestion(suggestion: AssetSuggestion) {
+  function handleSelectSuggestion(suggestion: TickerSuggestion) {
     handleCloseSuggestions();
     setInput(suggestion.stock);
     navigate(`/detail/${suggestion.stock}?type=${suggestion.type}`);
@@ -135,8 +135,8 @@ export function Home() {
         onCloseSuggestions={handleCloseSuggestions}
       />
 
-      <AssetTable
-        assets={assets}
+      <TickerTable
+        tickers={tickers}
         selected={stockFilter}
         sortOption={sortOption}
         onChangeFilter={handleStockFilter}

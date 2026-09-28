@@ -1,4 +1,4 @@
-export interface AssetProps {
+export interface TickerProps {
   stock: string;
   name: string;
   close: number;
@@ -12,7 +12,7 @@ export interface AssetProps {
   subType: string;
 }
 
-export interface FormatedAssetProps extends AssetProps {
+export interface FormatedTickerProps extends TickerProps {
   formatedClose: string;
   formatedChange: string;
   formatedVolume: string;
@@ -25,7 +25,7 @@ export interface IndexProps {
 }
 
 export interface BrapiResponseProps {
-  stocks: AssetProps[];
+  stocks: TickerProps[];
   currentPage: number;
   totalPages: number;
   itemsPerPage: number;
@@ -33,8 +33,8 @@ export interface BrapiResponseProps {
   hasNextPage: boolean;
 }
 
-export interface PaginatedAssetsProps {
-  assets: FormatedAssetProps[];
+export interface PaginatedTickersProps {
+  tickers: FormatedTickerProps[];
   currentPage: number;
   totalPages: number;
 }
@@ -46,7 +46,7 @@ export type SortOptions =
 
 export type sortOrderOptions = "asc" | "desc";
 
-export interface AssetSuggestion {
+export interface TickerSuggestion {
   stock: string;
   name: string;
   logo: string;

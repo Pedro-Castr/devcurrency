@@ -1,17 +1,17 @@
-import { AssetRow } from "../assetRow";
-import { AssetFilter } from "../assetFilter";
-import { AssetSort } from "../assetSort";
+import { TickerRow } from "../tickerRow";
+import { TickerFilter } from "../tickerFilter";
+import { TickerSort } from "../tickerSort";
 import type {
-  FormatedAssetProps,
+  FormatedTickerProps,
   StockTypes,
   SortOptions,
-} from "../../../types/assets";
+} from "../../../types/ticker";
 
-import styles from "./assetTable.module.css";
+import styles from "./tickerTable.module.css";
 import { SortOrderButton } from "../sortOrderButton";
 
-interface AssetTableProps {
-  assets: FormatedAssetProps[];
+interface TickerTableProps {
+  tickers: FormatedTickerProps[];
   selected: StockTypes;
   sortOption: SortOptions;
   isDescending: true | false;
@@ -20,25 +20,25 @@ interface AssetTableProps {
   onToggle: () => void;
 }
 
-export function AssetTable({
-  assets,
+export function TickerTable({
+  tickers,
   selected,
   sortOption,
   isDescending,
   onChangeFilter,
   handleOption,
   onToggle,
-}: AssetTableProps) {
+}: TickerTableProps) {
   return (
     <>
       <div className={styles.toolbar}>
         <div className={styles.sortGroup}>
-          <AssetSort sortOption={sortOption} handleOption={handleOption} />
+          <TickerSort sortOption={sortOption} handleOption={handleOption} />
 
           <SortOrderButton onToggle={onToggle} isDescending={isDescending} />
         </div>
 
-        <AssetFilter onChange={onChangeFilter} selected={selected} />
+        <TickerFilter onChange={onChangeFilter} selected={selected} />
       </div>
 
       <table className={styles.table}>
@@ -61,8 +61,8 @@ export function AssetTable({
         </thead>
 
         <tbody>
-          {assets.map((asset) => (
-            <AssetRow key={asset.stock} asset={asset} />
+          {tickers.map((ticker) => (
+            <TickerRow key={ticker.stock} ticker={ticker} />
           ))}
         </tbody>
       </table>

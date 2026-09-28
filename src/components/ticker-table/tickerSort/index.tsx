@@ -1,14 +1,14 @@
-import type { SortOptions } from "../../../types/assets";
+import type { SortOptions } from "../../../types/ticker";
 
 import { BsChevronDown } from "react-icons/bs";
-import styles from "./assetSort.module.css";
+import styles from "./tickerSort.module.css";
 
-interface AssetSortProps {
+interface TickerSortProps {
   sortOption: SortOptions;
   handleOption: (sortOption: SortOptions) => void;
 }
 
-export function AssetSort({ sortOption, handleOption }: AssetSortProps) {
+export function TickerSort({ sortOption, handleOption }: TickerSortProps) {
   const sortOptions: SortOptions[] = [
     "change",
     "close",

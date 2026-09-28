@@ -1,8 +1,6 @@
 import { describe, expect, test, vi, afterEach } from "vitest";
-import { getAsset, getAssets } from "./brapi";
+import { getTicker, getTickers } from "./brapi";
 
-// Helper pra não repetir o "molde" do fetch fake em cada teste —
-// você só passa o que muda em cada cenário (ok, status, json).
 function mockFetchResponse(options: {
   ok: boolean;
   status?: number;
@@ -23,11 +21,11 @@ describe("Brapi", () => {
     vi.unstubAllGlobals();
   });
 
-  describe("getAssets", () => {
+  describe("getTickers", () => {
     test("lança um erro quando a resposta da API não é ok", async () => {
       mockFetchResponse({ ok: false, status: 500 });
 
-      await expect(getAssets("stock")).rejects.toThrow("Erro na API: 500");
+      await expect(getTickers("stock")).rejects.toThrow("Erro na API: 500");
     });
 
     test("retorna os ativos formatados quando a resposta é bem-sucedida", async () => {
@@ -50,21 +48,21 @@ describe("Brapi", () => {
         }),
       });
 
-      const result = await getAssets("stock");
+      const result = await getTickers("stock");
 
-      expect(result.assets[0].stock).toBe("PETR4");
+      expect(result.tickers[0].stock).toBe("PETR4");
       expect(result.totalPages).toBe(79);
     });
   });
 
-  describe("getAsset", () => {
+  describe("getTicker", () => {
     test('lança "Ativo não encontrado" quando a busca não retorna nenhum resultado', async () => {
       mockFetchResponse({
         ok: true,
         json: vi.fn().mockResolvedValue({ stocks: [] }),
       });
 
-      await expect(getAsset("INEXISTENTE4", "stock")).rejects.toThrow(
+      await expect(getTicker("INEXISTENTE4", "stock")).rejects.toThrow(
         "Ativo não encontrado",
       );
     });
@@ -87,7 +85,7 @@ describe("Brapi", () => {
         }),
       });
 
-      const result = await getAsset("PETR4", "stock");
+      const result = await getTicker("PETR4", "stock");
 
       expect(result.stock).toBe("PETR4");
     });

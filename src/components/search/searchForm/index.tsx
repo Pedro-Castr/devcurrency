@@ -1,7 +1,7 @@
 import { type SubmitEvent } from "react";
 import { BsSearch } from "react-icons/bs";
 
-import type { AssetSuggestion } from "../../../types/assets";
+import type { TickerSuggestion } from "../../../types/ticker";
 
 import styles from "./searchForm.module.css";
 import { useClickOutside } from "../../../hooks/useClickOutside/useClickOutside";
@@ -10,9 +10,9 @@ interface SearchFormProps {
   value: string;
   onChange: (value: string) => void;
   onSubmit: (event: SubmitEvent<HTMLFormElement>) => void;
-  suggestions: AssetSuggestion[];
+  suggestions: TickerSuggestion[];
   isOpen: boolean;
-  onSelectSuggestion: (suggestion: AssetSuggestion) => void;
+  onSelectSuggestion: (suggestion: TickerSuggestion) => void;
   onCloseSuggestions: () => void;
 }
 

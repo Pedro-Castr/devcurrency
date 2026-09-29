@@ -5,6 +5,7 @@ import { Detail } from "./pages/detail";
 import { About } from "./pages/about";
 import { NotFound } from "./pages/notFound";
 import { Layout } from "./components/layout/layout";
+import { Favorites } from "./pages/favorites";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "/favorites",
+        element: <Favorites />,
       },
     ],
   },

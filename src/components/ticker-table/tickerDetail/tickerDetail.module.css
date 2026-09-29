@@ -7,6 +7,27 @@
   gap: 20px;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.heart,
+.heartActive {
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.heartActive {
+  color: var(--loss);
+}
+
+.heart:hover {
+  color: var(--loss);
+  transform: scale(1.1);
+}
+
 .back {
   display: inline-flex;
   align-items: center;

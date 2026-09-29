@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BsArrowLeft } from "react-icons/bs";
+import { BsArrowLeft, BsHeart } from "react-icons/bs";
 
 import { RangeBar } from "../../ui/rangeBar";
 import type { FormatedTickerQuoteProps } from "../../../types/ticker";
@@ -8,9 +8,15 @@ import styles from "./tickerDetail.module.css";
 
 interface TickerDetailProps {
   ticker: FormatedTickerQuoteProps;
+  isFavorite: boolean;
+  onToggleFavorite: () => void;
 }
 
-export function TickerDetail({ ticker }: TickerDetailProps) {
+export function TickerDetail({
+  ticker,
+  isFavorite,
+  onToggleFavorite,
+}: TickerDetailProps) {
   const isProfit = ticker.regularMarketChange > 0;
 
   const updatedAt = new Date(ticker.regularMarketTime).toLocaleTimeString(
@@ -20,10 +26,18 @@ export function TickerDetail({ ticker }: TickerDetailProps) {
 
   return (
     <div className={styles.container}>
-      <Link to="/" className={styles.back}>
-        <BsArrowLeft size={16} />
-        Voltar
-      </Link>
+      <div className={styles.header}>
+        <Link to="/" className={styles.back}>
+          <BsArrowLeft size={16} />
+          Voltar
+        </Link>
+
+        <BsHeart
+          size={28}
+          onClick={onToggleFavorite}
+          className={isFavorite ? styles.heartActive : styles.heart}
+        />
+      </div>
 
       <section className={styles.hero}>
         <img

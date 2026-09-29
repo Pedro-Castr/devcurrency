@@ -4,48 +4,21 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 24px;
+  margin-bottom: 18px;
   background-color: var(--bg-surface);
   border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
   z-index: 10;
-  margin-bottom: 24px;
 }
 
-.sider {
-  display: flex;
-  gap: 24px;
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.nav a {
-  color: var(--text-secondary);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 500;
-  transition: color 0.15s ease;
-}
-
-.nav a:hover {
-  color: var(--text-primary);
-}
-
-.navLinkActive {
-  color: var(--text-primary);
-}
-
-.container a {
+.logoLink {
   display: inline-flex;
   align-items: center;
   transition: opacity 0.15s ease;
 }
 
-.container a:hover {
+.logoLink:hover {
   opacity: 0.85;
 }
 
@@ -56,22 +29,38 @@
   display: block;
 }
 
-@media (max-width: 640px) {
-  .container {
-    padding: 12px 16px;
-  }
+.sider {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
 
-  .logo {
-    height: 26px;
-  }
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
 
-  .nav {
-    gap: 14px;
-  }
+.navLink {
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
 
-  .nav a {
-    font-size: 13px;
-  }
+.navLink:hover {
+  color: var(--text-primary);
+}
+
+.navLinkActive {
+  color: var(--text-primary);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .themeButton {
@@ -113,5 +102,62 @@
 @media (prefers-reduced-motion: reduce) {
   .iconWrapper {
     animation: none;
+  }
+}
+
+.menuButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 12px 16px;
+  }
+
+  .logo {
+    height: 26px;
+  }
+
+  .menuButton {
+    display: flex;
+  }
+
+  .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+
+  .navOpen {
+    max-height: 200px;
+  }
+
+  .navLink {
+    padding: 14px 20px;
+    font-size: 15px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .navLink:last-child {
+    border-bottom: 0;
   }
 }

@@ -1,10 +1,10 @@
-name: Prettier Formater
+name: Prettier
 
 on:
   pull_request:
 
 jobs:
-  test:
+  prettier:
     runs-on: ubuntu-latest
 
     steps:

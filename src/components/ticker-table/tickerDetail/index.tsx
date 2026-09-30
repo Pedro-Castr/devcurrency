@@ -87,21 +87,36 @@ export function TickerDetail({
 
       <section className={styles.statsGrid}>
         <div className={styles.statCard}>
-          <span className={styles.statLabel}>Abertura</span>
+          <span
+            className={styles.statLabel}
+            data-tooltip="Preço da primeira negociação do dia"
+          >
+            Abertura
+          </span>
           <strong className={styles.statValue}>
             {ticker.formatedRegularMarketOpen}
           </strong>
         </div>
 
         <div className={styles.statCard}>
-          <span className={styles.statLabel}>Fech. anterior</span>
+          <span
+            className={styles.statLabel}
+            data-tooltip="Preço de fechamento do pregão anterior"
+          >
+            Fech. anterior
+          </span>
           <strong className={styles.statValue}>
             {ticker.formatedRegularMarketPreviousClose}
           </strong>
         </div>
 
         <div className={styles.statCard}>
-          <span className={styles.statLabel}>Volume</span>
+          <span
+            className={styles.statLabel}
+            data-tooltip="Quantidade financeira negociada no dia"
+          >
+            Volume
+          </span>
           <strong className={styles.statValue}>
             {ticker.formatedRegularMarketVolume}
           </strong>
@@ -109,7 +124,12 @@ export function TickerDetail({
 
         {ticker.priceEarnings != null && (
           <div className={styles.statCard}>
-            <span className={styles.statLabel}>Valor de mercado</span>
+            <span
+              className={styles.statLabel}
+              data-tooltip="Valor total da empresa: preço da ação × quantidade de ações emitidas"
+            >
+              Valor de mercado
+            </span>
             <strong className={styles.statValue}>
               {ticker.formatedMarketCap}
             </strong>
@@ -118,7 +138,12 @@ export function TickerDetail({
 
         {ticker.priceEarnings != null && (
           <div className={styles.statCard}>
-            <span className={styles.statLabel}>P/L</span>
+            <span
+              className={styles.statLabel}
+              data-tooltip="Preço dividido pelo lucro por ação — quanto menor, mais barata a ação em relação ao lucro que gera"
+            >
+              P/L
+            </span>
             <strong className={styles.statValue}>
               {ticker.formatedPriceEarnings}x
             </strong>
@@ -127,7 +152,12 @@ export function TickerDetail({
 
         {ticker.earningsPerShare != null && (
           <div className={styles.statCard}>
-            <span className={styles.statLabel}>LPA</span>
+            <span
+              className={styles.statLabel}
+              data-tooltip="Lucro líquido dividido pela quantidade de ações — quanto de lucro corresponde a cada ação"
+            >
+              LPA
+            </span>
             <strong className={styles.statValue}>
               {ticker.formatedEarningsPerShare}
             </strong>

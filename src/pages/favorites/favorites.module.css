@@ -4,6 +4,27 @@
   padding: 24px 16px 48px;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  transition: color 0.15s ease;
+}
+
+.back:hover {
+  color: var(--text-primary);
+}
+
 .title {
   font-family: var(--font-sans);
   font-size: 22px;

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { BsArrowLeft } from "react-icons/bs";
 
 import { useLocalStorageState } from "../../hooks/useLocalStorageState/useLocalStorageState";
 import { getTicker } from "../../services/brapi";
@@ -57,7 +58,13 @@ export function Favorites() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Favoritos</h1>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Favoritos</h1>
+        <Link to="/" className={styles.back}>
+          <BsArrowLeft size={16} />
+          Voltar
+        </Link>
+      </div>
 
       <div className={styles.grid}>
         {tickers.map((ticker) => {
